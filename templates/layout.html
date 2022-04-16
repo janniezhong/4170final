@@ -19,6 +19,10 @@
     crossorigin="anonymous"></script>
   <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
 
+  <!-- xterm -->
+  <link rel="stylesheet" href="{{url_for('static', filename='node_modules/xterm/css/xterm.css')}}" />
+  <script src="{{url_for('static', filename='node_modules/xterm/lib/xterm.js')}}"></script>
+
 
   <script type="text/javascript" src="{{ url_for('static', filename = 'layout.js') }}"></script>
 
@@ -28,7 +32,7 @@
 
 <body>
 
-  <nav class="navbar navbar-expand-lg navbar-light navbar-custom py-4">
+  <!-- <nav class="navbar navbar-expand-lg navbar-light navbar-custom py-4">
     <div class="container">
       <a class="navbar-brand" href="/">Find Webtoons!</a>
       <a class="nav-link" href="/add">Add A Webtoon</a>
@@ -38,14 +42,14 @@
         <span class="navbar-toggler-icon"></span>
       </button>
     </div>
-  </nav>
+  </nav> -->
 
-  <div style="position: relative;">
+  <!-- <div style="position: relative;"> -->
     <div class="container">
       {% block content %}
       {% endblock %}
     </div>
-  </div>
+  <!-- </div> -->
 </body>
 
 </html>
