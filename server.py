@@ -35,9 +35,9 @@ lessons = {
     }
 }
 
-responses = {}
+lesson_responses = {}
 
-reponseId = 1
+lesson_reponseId = 1
 # ROUTES
 
 @app.route('/')
@@ -65,11 +65,16 @@ def next_lesson():
 
     lesson_id = json_data["id"]
     lesson_response = json_data["response"]
+    logResponse(lesson_id, lesson_response)
     print(lesson_id, lesson_response)
 
     current_lesson = lessons[lesson_id]
     return jsonify(current_lesson)
 
+# methods
+
+def logResponse(lesson_id, lesson_response):
+    response_entry = {""}
 
 if __name__ == '__main__':
    app.run(debug = True)
