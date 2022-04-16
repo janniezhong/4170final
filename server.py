@@ -74,7 +74,17 @@ def next_lesson():
 # methods
 
 def logResponse(lesson_id, lesson_response):
-    response_entry = {""}
+
+    global lesson_reponseId
+    global lesson_responses
+
+    response_entry = {"lesson_id": lesson_id,
+                      "response": lesson_response}
+    id = str(lesson_reponseId)
+    lesson_responses.update({id:response_entry})
+    print (lesson_responses)
+
+
 
 if __name__ == '__main__':
    app.run(debug = True)
