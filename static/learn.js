@@ -67,6 +67,7 @@ $(document).ready(function(){
             if (currLine) {
                 term.write("\n\r > ");
                 // term.prompt();
+                checkAnswer()
             }
         } else if (code < 32 || code == 127) { // Control
             return;
