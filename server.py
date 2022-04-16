@@ -7,7 +7,7 @@ lessons = {
     "1": {
         "lesson_id": "1",
         "title": "Getting Started",
-        "text": "let's get started! \n\n grep is a command in the shell often used for rsearching. It's insanely useful - if you know how to use it well. \n\n Let's start with basic grep. At its simplest, grep can be used to search for words in files. This directory has a file with filename HappyBirthday, containing al the lyrics to the Happy Birthday song. To search the song for all lines with the word \"birthday\", try typing \"grep \"birthday\" HappyBirthday\". Don't forget your doable quotes!",
+        "text": "let's get started! \r\n\r\n grep is a command in the shell often used for researching. It's insanely useful - if you know how to use it well. \r\n\r\n Let's start with basic grep. At its simplest, grep can be used to search for words in files. This directory has a file with filename HappyBirthday, containing al the lyrics to the Happy Birthday song. To search the song for all lines with the word \"birthday\", try typing \"grep \"birthday\" HappyBirthday\". Don't forget your doable quotes!",
         "answer": "grep \"birthday\" HappyBirthday",
         "next_lesson_id": "2",
     },
@@ -41,10 +41,9 @@ lessons = {
 def home():
     return render_template('index.html') 
 
-@app.route('/learn/<lesson_id>')
-def learn(lesson_id):
-    lesson = lessons[lesson_id]
-    return render_template('learn.html', lesson = lesson)
+@app.route('/learn')
+def learn():
+    return render_template('learn.html')
 
 @app.route('/quiz/<quiz_id>')
 def quiz(quiz_id):
@@ -52,7 +51,7 @@ def quiz(quiz_id):
     return render_template('quiz.html', question = question)
 
 @app.route('/quiz/result/<quiz_score>')
-def quiz(quiz_score):
+def quiz_score(quiz_score):
     score = quiz_score
     return render_template('quizresult.html', score = score)
 
@@ -62,10 +61,10 @@ def next_lesson():
     global lessons
 
     json_data=request.get_json()
-    lesson_id = json_data
+    lesson_id = json_data["id"]
     print(lesson_id)
     current_lesson = lessons[lesson_id]
-    return jsonify(current_lesson = current_lesson)
+    return jsonify(current_lesson)
 
 
 if __name__ == '__main__':
