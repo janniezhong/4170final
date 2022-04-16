@@ -9,6 +9,10 @@ app = Flask(__name__)
 def home():
     return render_template('index.html') 
 
+@app.route('/learn')
+def learn():
+    return render_template('learn.html') 
+
 # ajax
 
 
