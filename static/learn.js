@@ -11,16 +11,17 @@ let currLesson = {
 var term;
 
 function checkAnswer(){
-    if (true){ // if the answer is correct
+
+    if (currLine == currLesson["answer"]){ // if the answer is correct
         getNextLesson()
-        currLine = "" // clear line
     } else {
-        //error handling
+        term.write(" \r\n > That wasn't quite right :/ Try again? \r\n > ")
     }
 
+    currLine = "" // clear line
 }
 
-function getNextLesson(){
+function getNextLesson(){ // if the lesson is the last one, go to the quiz instead
     data = {
         "id": currLesson["next_lesson_id"],
         "response": currLine
@@ -40,7 +41,6 @@ function getNextLesson(){
             currLesson["text"] = result["text"]
             currLesson["answer"] = result["answer"]
             currLesson["next_lesson_id"] = result["next_lesson_id"]
-            console.log(currLesson["text"])
             updateTerminal(currLesson["text"])
         },
         error: function(request, status, error){
@@ -61,20 +61,19 @@ function updateTerminal(s){
 $(document).ready(function(){
     term = new Terminal({cursorBlink: "block"});
     term.open(document.getElementById('terminal'));
-    term.write('Hi! \r\n > ')
+    term.write('Hi! \r\n')
 
     getNextLesson()
 
     term.onKey(e => {
-        console.log(e.key);
         let code  = e.key.charCodeAt()
 
         if (code == 13){
             if (currLine) {
-                term.write("\n\r > ");
+                // term.write("\n\r > ");
                 checkAnswer()
             }
-        } else if (code < 32 || code == 127) { // Control
+        } else if (code < 32) { // Control
             return;
         } else if (code == 127 || code == 8){
             if (currLine) {
