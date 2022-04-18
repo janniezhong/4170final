@@ -1,14 +1,12 @@
 {% extends "layout.html" %} {% block content %}
 
 <script>
-  let quiz_info = {{quiz_info|tojson}}
+  let score = {{score|tojson}}
 </script>
 <script
   type="text/javascript"
-  src="{{ url_for('static', filename = 'quiz.js') }}"
+  src="{{ url_for('static', filename = 'result.js') }}"
 ></script>
-
-
 
 <div>
   <div id="terminal"></div>
