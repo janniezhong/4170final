@@ -1,9 +1,8 @@
-
 var term;
-let currLine = "";
-function checkAnswer(){
+
+function checkAnswer(currLine, qid){
     if (currLine == "testing"){ // if the answer is correct
-        getNextQuiz()
+        getNextPage(qid)
     } else {
         term.write(" \r\n > That wasn't quite right :/ Try again? \r\n > ")
     }
@@ -11,8 +10,12 @@ function checkAnswer(){
     currLine = "" // clear line
 }
 
-function getNextQuiz(){ // if the lesson is the last one, go to the quiz instead
-    window.location.pathname = '/quiz/2'
+function getNextPage(qid){ // if the lesson is the last one, go to the quiz instead
+    if (qid == 4) {
+        window.location.pathname = '/quiz/result'
+    } else {
+        window.location.pathname = '/quiz/' + (qid + 1).toString()
+    }
 }
 
 function updateTerminal(s){
@@ -30,36 +33,6 @@ function createHeader() {
     return arr.join("\r\n")
 }
 
-function getNextQuiz(quizId) {
-
-    
-    switch (quizId) {
-        case "1":
-          
-            return {
-                "question": "\r\nPerson 1: My favorite condiments are ketchup and mustard. I’d like to find the names of recipes containing these ingredients in this recipe book.\r\n",
-                "answer": "testing"
-            }
-        case "2":
-            return {
-                "question": "\r\nPerson 2: I love salty food, especially things made with soy sauce. I’d like to find the names of recipes containing the words “salt” or “soy sauce” from this recipe book.\r\n",
-                "answer": "testing"
-            }
-        case "3":
-            return {
-                "question": "\r\nPerson 3: I’m interested in Recipe3 in this book. Unfortunately, I don’t have a Dutch oven: can you search Recipe3 for the phrase “dutch oven” (case insensitive), so I know whether it’s essential or not?\r\n",
-                "answer": "testing"
-            }
-        case "4":
-            return {
-                "question": "\r\nPerson 4: I love galettes, both savory and sweet. I’d like to find the names of all recipes that are making galettes in this book.\r\n",
-                "answer": "testing"
-            }
-        default:
-            return null
-    }
-}
-
 function getCurrQuizNum() {
     return window.location.href.trim().slice(-1)
 }
@@ -71,20 +44,19 @@ $(document).ready(function(){
 
     term.open(document.getElementById('terminal'));
     
-    let currQuiz = getNextQuiz(getCurrQuizNum());
-
-    term.write( currQuiz["question"] )
+    term.write(quiz_info["instruction"] + "\r\n\r\n\r\n")
+    term.write(quiz_info["question"] + "\r\n\r\n\r\n")
 
     updateTerminal("");
 
-
+    var currLine = ""
 
     term.onKey(e => {
         let code  = e.key.charCodeAt()
 
         if (code == 13){
             if (currLine) {
-                console.log(currLine)
+                checkAnswer(currLine, parseInt(getCurrQuizNum()))
             }
         } else if (code < 32) { // Control
             return;
@@ -97,6 +69,5 @@ $(document).ready(function(){
             currLine += e.key;
             term.write(e.key);
         }
-
     })
 }) 

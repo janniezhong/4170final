@@ -36,7 +36,7 @@ lessons = {
     }
 }
 
-quiz = {
+quiz_dict = {
     '1': {
         'quiz_id': '1',
         'title': 'Searching Through Recipes',
@@ -76,7 +76,7 @@ lesson_responses = {}
 lesson_reponseId = 1
 
 quiz_response = defaultdict(list)
-quiz_score = {quiz_id : 0 for quiz_id in quiz}
+quiz_score = {quiz_id : 0 for quiz_id in quiz_dict}
 
 # ROUTES
 
@@ -90,7 +90,7 @@ def learn():
 
 @app.route('/quiz/<quiz_id>')
 def quiz(quiz_id=None):
-    return render_template('quiz.html', quiz_info=quiz[quiz_id])
+    return render_template('quiz.html', quiz_info=quiz_dict[quiz_id])
 
 @app.route('/quiz/result')
 def result():
