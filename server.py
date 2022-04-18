@@ -99,12 +99,50 @@ quiz_dict = {
     }
 }
 
+quiz_dict = {
+    '1': {
+        'quiz_id': '1',
+        'title': 'Searching Through Recipes',
+        'instruction': 'Various other readers are looking at a recipe book, and would like your assistance in searching through them as well. Use your new commands to help these people find what they need! If you need a hint, type and enter h.',
+        'question': 'Person 1: My favorite condiments are ketchup and mustard. I’d like to find the names of recipes containing these ingredients in this recipe book.',
+        'answer': 'answer1',
+        'img': '/static/images/image1.png'
+    },
+    '2': {
+        'quiz_id': '2',
+        'title': 'Searching Through Recipes',
+        'instruction': 'Various other readers are looking at some other books, and would like your assistance in searching through it as well. Use your new commands to help these people find what they need! If you need a hint, type and enter h.',
+        'question': 'Person 2: I love salty food, especially things made with soy sauce. I’d like to find the names of recipes containing the words “salt” or “soy sauce” from this recipe book.',
+        'answer': 'answer2',
+        'img': '/static/images/image2.png'
+    },
+    '3': {
+        'quiz_id': '3',
+        'title': 'Searching Through Recipes',
+        'instruction': 'Various other readers are looking at some other books, and would like your assistance in searching through it as well. Use your new commands to help these people find what they need! If you need a hint, type and enter h.',
+        'question': 'Person 3: I’m interested in Recipe3 in this book. Unfortunately, I don’t have a Dutch oven: can you search Recipe3 for the phrase “dutch oven” (case insensitive), so I know whether it’s essential or not?',
+        'answer': 'answer3',
+        'img': '/static/images/image3.png'
+    },
+    '4': {
+        'quiz_id': '4',
+        'title': 'Searching Through Recipes',
+        'instruction': 'Various other readers are looking at some other books, and would like your assistance in searching through it as well. Use your new commands to help these people find what they need! If you need a hint, type and enter h.',
+        'question': 'Person 4: I love galettes, both savory and sweet. I’d like to find the names of all recipes that are making galettes in this book.',
+        'answer': 'answer4',
+        'img': '/static/images/image4.png'
+    }
+}
+
 lesson_responses = {}
 
 lesson_reponseId = 1
 
 quiz_response = defaultdict(list)
-quiz_score = {quiz_id : 0 for quiz_id in quiz_dict}
+
+# key needs to be int to be jsonified
+quiz_score = {int(quiz_id) : 0 for quiz_id in quiz_dict}
+
 
 # ROUTES
 
@@ -147,7 +185,8 @@ def save_response():
     id = json_data["id"]
     response = json_data["response"]
     quiz_response[id].append(response)
-    quiz_score[id] = 1 if quiz[id]['answer'] == response else 0
+    quiz_score[id] = 1 if quiz_dict[str(id)]['answer'] == response else 0
+
 
     return jsonify(quiz_score)
 

@@ -1,5 +1,5 @@
 $(document).ready(function(){
     $(document).keypress(function(event){
-        window.location.href = "/learn"
+        window.location.href = "/quiz"
     });
 })
