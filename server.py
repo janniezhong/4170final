@@ -121,7 +121,7 @@ def save_response():
     quiz_response[id].append(response)
     quiz_score[id] = 1 if quiz[id]['answer'] == response else 0
 
-    return jsonify(quiz_response)
+    return jsonify(quiz_score)
 
 # methods
 
