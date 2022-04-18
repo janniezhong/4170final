@@ -1,14 +1,37 @@
 var term;
 
 function checkAnswer(currLine, qid){
-    if (currLine == "testing"){ // if the answer is correct
-        getNextPage(qid)
-    } else {
-        term.write(" \r\n > That wasn't quite right :/ Try again? \r\n > ")
+    data = {
+        "id": qid,
+        "response": currLine
     }
 
-    currLine = "" // clear line
+    console.log(currLine)
+
+    $.ajax({
+        type: "POST",
+        url: "/save_response",                
+        dataType : "json",
+        contentType: "application/json; charset=utf-8",
+        data : JSON.stringify(data),
+        success: function(result){
+            let res = result[qid]
+
+            if (res == 1){ // if the answer is correct
+                getNextPage(qid)
+            } else {
+                term.write("\r\n That wasn't quite right :/ Try again? \r\n > ")
+            }
+        },
+        error: function(request, status, error){
+            console.log("Error");
+            console.log(request)
+            console.log(status)
+            console.log(error)
+        }
+    });
 }
+
 
 function getNextPage(qid){ // if the lesson is the last one, go to the quiz instead
     if (qid == 4) {
@@ -91,24 +114,29 @@ $(document).ready(function(){
 
     updateTerminal("");
 
-    var currLine = ""
+    var container = {
+        currLine: ""
+    };
+
+    container.currLine = ""
 
     term.onKey(e => {
         let code  = e.key.charCodeAt()
 
         if (code == 13){
-            if (currLine) {
-                checkAnswer(currLine, qid)
+            if (container.currLine) {
+                checkAnswer(container.currLine, qid)
+                container.currLine = ""
             }
         } else if (code < 32) { // Control
             return;
         } else if (code == 127 || code == 8){
-            if (currLine) {
-                currLine = currLine.slice(0, currLine.length - 1);
+            if (container.currLine) {
+                container.currLine = container.currLine.slice(0, container.currLine.length - 1);
                 term.write("\b \b");
             }
         } else {
-            currLine += e.key;
+            container.currLine += e.key;
             term.write(e.key);
         }
     })
