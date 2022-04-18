@@ -8,6 +8,8 @@ let currLesson = {
     "next_lesson_id": "1"
 }
 
+let lessonFinished = false
+
 var term;
 
 function checkAnswer(){
@@ -44,7 +46,7 @@ function getNextLesson(){ // if the lesson is the last one, go to the quiz inste
             currLesson["next_lesson_id"] = result["next_lesson_id"]
             updateTerminal(currLesson["text"])
             if (currLesson["lesson_id"] == "final"){
-                window.location.href = "/quiz/1"
+                lessonFinished = true
             }
         },
         error: function(request, status, error){
@@ -57,6 +59,7 @@ function getNextLesson(){ // if the lesson is the last one, go to the quiz inste
 }
 
 function updateTerminal(s){
+    term.write('\r\n')
     term.write(s)
     term.write('\r\n > ')
 }
@@ -72,7 +75,9 @@ $(document).ready(function(){
         let code  = e.key.charCodeAt()
 
         if (code == 13){
-            if (currLine) {
+            if (lessonFinished){
+                window.location.href = "/quiz/1"
+            } else if (currLine) {
                 checkAnswer()
             }
         } else if (code < 32) { // Control
