@@ -37,6 +37,42 @@ function getCurrQuizNum() {
     return window.location.href.trim().slice(-1)
 }
 
+function renderTreeOne() {
+    term.write("recipe_book \r\n")
+    term.write("├── recipe1 \r\n")
+    term.write("├── recipe2 \r\n")
+    term.write("├── recipe3 \r\n")
+    term.write("└── recipe4 \r\n")
+
+    term.write("0 directories, 4 files")
+}
+
+function renderTreeTwo() {
+    term.write("recipe_book \r\n")
+    term.write("├── savory \r\n")
+    term.write("│   ├── recipe1\r\n")
+    term.write("│   └── recipe2\r\n")
+    term.write("└── sweet\r\n")
+    term.write("    ├── recipe3\r\n")
+    term.write("    └── recipe4\r\n")
+
+    term.write("2 directories, 4 files")
+}
+
+function renderTree(qid) {
+    switch (qid) {
+        case 1:
+        case 2:
+        case 3:
+            renderTreeOne()
+            return
+        case 4:
+            renderTreeTwo()
+        default:
+            return
+    }
+}
+
 $(document).ready(function(){
     term = new Terminal({cursorBlink: "block"});
 
@@ -44,8 +80,14 @@ $(document).ready(function(){
 
     term.open(document.getElementById('terminal'));
     
-    term.write(quiz_info["instruction"] + "\r\n\r\n\r\n")
-    term.write(quiz_info["question"] + "\r\n\r\n\r\n")
+    term.write(quiz_info["instruction"] + "\r\n\r\n")
+
+    var qid = parseInt(getCurrQuizNum())
+
+    renderTree(qid)
+    term.write("\r\n\r\n")
+
+    term.write(quiz_info["question"] + "\r\n")
 
     updateTerminal("");
 
@@ -56,7 +98,7 @@ $(document).ready(function(){
 
         if (code == 13){
             if (currLine) {
-                checkAnswer(currLine, parseInt(getCurrQuizNum()))
+                checkAnswer(currLine, qid)
             }
         } else if (code < 32) { // Control
             return;
