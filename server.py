@@ -52,15 +52,15 @@ lessons = {
         "lesson_id": "7",
         "title": "teaching the -i flag part 1",
         "text": "\r\n\r\n That's weird It seems like no lines contain the word \"wool\". Maybe that's becasue of the random capitalization (grep \"wool\" BlackSheep only searches for lines with the word \"wool\" where all letters are lowercase).\r\nInstead try typing \"grep -i \"wool\" BlackSheep.",
-        "answer": "grep -i \"wool\" BlackSheep.",
-        "next_lesson_id": "8",
+        "answer": "grep -i \"wool\" BlackSheep",
+        "next_lesson_id": "final",
     },
-    "8": {
-        "lesson_id": "7",
-        "title": "teaching the -i flag part 2",
-        "text": "\r\n\r\n That's weird It seems like no lines contain the word \"wool\". Maybe that's becasue of the random capitalization (grep \"wool\" BlackSheep only searches for lines with the word \"wool\" where all letters are lowercase).\r\nInstead try typing \"grep -i \"wool\" BlackSheep.",
-        "answer": "grep -i \"wool\" BlackSheep.",
-        "next_lesson_id": "8",
+    "final": {
+        "lesson_id": "final",
+        "title": "onto the quiz",
+        "text": "\r\n\r\n Good job; you’re a grep rockstar! Time to put all that knowledge to the test - press enter to move onto the quiz.",
+        "answer": "",
+        "next_lesson_id": "",
     }
 }
 
