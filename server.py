@@ -200,6 +200,7 @@ def logResponse(lesson_id, lesson_response):
     response_entry = {"lesson_id": lesson_id,
                       "response": lesson_response}
     id = str(lesson_reponseId)
+    lesson_reponseId += 1
     lesson_responses.update({id:response_entry})
     print (lesson_responses)
 
