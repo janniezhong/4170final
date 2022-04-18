@@ -33,6 +33,34 @@ lessons = {
         "text": "Happy birthday to you\r\n Happy birthday to you\r\n Happy brithday to you. \r\n\r\n Solid! Now what happens if we want to search for different strings at once (say \"you\" and \"dear\")? We can't just type \"you dear\", since as we saw in the last example that's what it'll search for directly.\nInstead, we use the pipe operator, \"|\", to indicate \"or\". Try typing \"grep \"you | dear\" HappyBirthday\".",
         "answer": "grep \"you | dear\" HappyBirthday",
         "next_lesson_id": "5",
+    },
+    "5": {
+        "lesson_id": "5",
+        "title": "searching for words and punctuation",
+        "text": "\r\nHappy birthday to you\r\n Happy birthday to you\r\n Happy birthday, dear [name]\r\n Happy brithday to you.\r\n\r\n Since every line contains either \"you\" or \"dear\", the terminal return every line. Perfect!\r\n How would you search for lines that contain \"to\" and \",\"?", 
+        "answer": "grep \"to | ,\" HappyBirthday",
+        "next_lesson_id": "6",
+    },
+    "6": {
+        "lesson_id": "6",
+        "title": "searching through new song BlackSheep",
+        "text": "\r\nHappy birthday to you\r\n Happy birthday to you\r\n Happy birthday, dear [name]\r\n Happy brithday to you.\r\n\r\n Again, since every line contains either \"to\" or \",\", the terminal returned every line. Let's move on to something a little more difficult :)\r\n\r\n Let's imagine that we're now searching through a different file in the same folder titled \"BlackSheep\" that contains all the lyrics to the children's nursery rhyme \"Baa Baa Black Sheep\", but with random capitalization throughout.\r\nTry searching for the word \"wool\" in this file.",
+        "answer": "grep \"wool\" BlackSheep",
+        "next_lesson_id": "7",
+    },
+     "7": {
+        "lesson_id": "7",
+        "title": "teaching the -i flag part 1",
+        "text": "\r\n\r\n That's weird It seems like no lines contain the word \"wool\". Maybe that's becasue of the random capitalization (grep \"wool\" BlackSheep only searches for lines with the word \"wool\" where all letters are lowercase).\r\nInstead try typing \"grep -i \"wool\" BlackSheep.",
+        "answer": "grep -i \"wool\" BlackSheep.",
+        "next_lesson_id": "8",
+    },
+    "8": {
+        "lesson_id": "7",
+        "title": "teaching the -i flag part 2",
+        "text": "\r\n\r\n That's weird It seems like no lines contain the word \"wool\". Maybe that's becasue of the random capitalization (grep \"wool\" BlackSheep only searches for lines with the word \"wool\" where all letters are lowercase).\r\nInstead try typing \"grep -i \"wool\" BlackSheep.",
+        "answer": "grep -i \"wool\" BlackSheep.",
+        "next_lesson_id": "8",
     }
 }
 
