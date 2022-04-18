@@ -94,8 +94,7 @@ def quiz(quiz_id=None):
 
 @app.route('/quiz/result')
 def result():
-
-    return render_template('result.html', score=sum(quiz_score.items()))
+    return render_template('result.html', score=sum(quiz_score.values()))
 
 # ajax
 @app.route('/next_lesson', methods=['GET', 'POST'])
