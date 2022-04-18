@@ -22,6 +22,7 @@ function checkAnswer(){
 }
 
 function getNextLesson(){ // if the lesson is the last one, go to the quiz instead
+
     data = {
         "id": currLesson["next_lesson_id"],
         "response": currLine
@@ -42,6 +43,9 @@ function getNextLesson(){ // if the lesson is the last one, go to the quiz inste
             currLesson["answer"] = result["answer"]
             currLesson["next_lesson_id"] = result["next_lesson_id"]
             updateTerminal(currLesson["text"])
+            if (currLesson["lesson_id"] == "final"){
+                window.location.href = "/quiz"
+            }
         },
         error: function(request, status, error){
             console.log("Error");
@@ -55,7 +59,6 @@ function getNextLesson(){ // if the lesson is the last one, go to the quiz inste
 function updateTerminal(s){
     term.write(s)
     term.write('\r\n > ')
-
 }
 
 $(document).ready(function(){
@@ -70,7 +73,6 @@ $(document).ready(function(){
 
         if (code == 13){
             if (currLine) {
-                // term.write("\n\r > ");
                 checkAnswer()
             }
         } else if (code < 32) { // Control
