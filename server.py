@@ -48,8 +48,8 @@ def home():
 def learn():
     return render_template('learn.html')
 
-@app.route('/quiz/<quiz_id>')
-def quiz():
+@app.route('/quiz/<qid>')
+def quiz(qid):
     return render_template('quiz.html')
 
 @app.route('/quiz/result/<quiz_score>')
