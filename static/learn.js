@@ -44,7 +44,7 @@ function getNextLesson(){ // if the lesson is the last one, go to the quiz inste
             currLesson["next_lesson_id"] = result["next_lesson_id"]
             updateTerminal(currLesson["text"])
             if (currLesson["lesson_id"] == "final"){
-                window.location.href = "/quiz"
+                window.location.href = "/quiz/1"
             }
         },
         error: function(request, status, error){
