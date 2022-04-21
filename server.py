@@ -1,4 +1,4 @@
-from urllib import response
+from urllib import Response
 from flask import Flask
 from flask import render_template
 from flask import Response, request, jsonify
@@ -58,7 +58,7 @@ lessons = {
     "final": {
         "lesson_id": "final",
         "title": "onto the quiz",
-        "text": "\r\n\r\n Good job; you’re a grep rockstar! Time to put all that knowledge to the test - press enter to move onto the quiz.",
+        "text": "\r\n\r\n Good job; you\'re a grep rockstar! Time to put all that knowledge to the test - press enter to move onto the quiz.",
         "answer": "",
         "next_lesson_id": "",
     }
@@ -69,7 +69,7 @@ quiz_dict = {
         'quiz_id': '1',
         'title': 'Searching Through Recipes',
         'instruction': 'Various other readers are looking at a recipe book, and would like your assistance in searching through them as well. Use your new commands to help these people find what they need! If you need a hint, type and enter h.',
-        'question': 'Person 1: My favorite condiments are ketchup and mustard. I’d like to find the names of recipes containing these ingredients in this recipe book.',
+        'question': 'Person 1: My favorite condiments are ketchup and mustard. I\'d like to find the names of recipes containing these ingredients in this recipe book.',
         'answer': '',
         'img': '/static/images/image1.png'
     },
@@ -77,7 +77,7 @@ quiz_dict = {
         'quiz_id': '2',
         'title': 'Searching Through Recipes',
         'instruction': 'Various other readers are looking at some other books, and would like your assistance in searching through it as well. Use your new commands to help these people find what they need! If you need a hint, type and enter h.',
-        'question': 'Person 2: I love salty food, especially things made with soy sauce. I’d like to find the names of recipes containing the words “salt” or “soy sauce” from this recipe book.',
+        'question': 'Person 2: I love salty food, especially things made with soy sauce. I\'d like to find the names of recipes containing the words \"salt\" or \"soy sauce\" from this recipe book.',
         'answer': '',
         'img': '/static/images/image2.png'
     },
@@ -85,7 +85,7 @@ quiz_dict = {
         'quiz_id': '3',
         'title': 'Searching Through Recipes',
         'instruction': 'Various other readers are looking at some other books, and would like your assistance in searching through it as well. Use your new commands to help these people find what they need! If you need a hint, type and enter h.',
-        'question': 'Person 3: I’m interested in Recipe3 in this book. Unfortunately, I don’t have a Dutch oven: can you search Recipe3 for the phrase “dutch oven” (case insensitive), so I know whether it’s essential or not?',
+        'question': 'Person 3: I\'m interested in Recipe3 in this book. Unfortunately, I don\'t have a Dutch oven: can you search Recipe3 for the phrase \"dutch oven\" (case insensitive), so I know whether it\'s essential or not?',
         'answer': '',
         'img': '/static/images/image3.png'
     },
@@ -93,7 +93,7 @@ quiz_dict = {
         'quiz_id': '4',
         'title': 'Searching Through Recipes',
         'instruction': 'Various other readers are looking at some other books, and would like your assistance in searching through it as well. Use your new commands to help these people find what they need! If you need a hint, type and enter h.',
-        'question': 'Person 4: I love galettes, both savory and sweet. I’d like to find the names of all recipes that are making galettes in this book.',
+        'question': 'Person 4: I love galettes, both savory and sweet. I\'d like to find the names of all recipes that are making galettes in this book.',
         'answer': '',
         'img': '/static/images/image4.png'
     }
@@ -104,32 +104,32 @@ quiz_dict = {
         'quiz_id': '1',
         'title': 'Searching Through Recipes',
         'instruction': 'Various other readers are looking at a recipe book, and would like your assistance in searching through them as well. Use your new commands to help these people find what they need! If you need a hint, type and enter h.',
-        'question': 'Person 1: My favorite condiments are ketchup and mustard. I’d like to find the names of recipes containing these ingredients in this recipe book.',
-        'answer': 'answer1',
+        'question': 'Person 1: My favorite condiments are ketchup and mustard. I\'d like to find the names of recipes containing these ingredients in this recipe book.',
+        'answer': '',
         'img': '/static/images/image1.png'
     },
     '2': {
         'quiz_id': '2',
         'title': 'Searching Through Recipes',
         'instruction': 'Various other readers are looking at some other books, and would like your assistance in searching through it as well. Use your new commands to help these people find what they need! If you need a hint, type and enter h.',
-        'question': 'Person 2: I love salty food, especially things made with soy sauce. I’d like to find the names of recipes containing the words “salt” or “soy sauce” from this recipe book.',
-        'answer': 'answer2',
+        'question': 'Person 2: I love salty food, especially things made with soy sauce. I\'d like to find the names of recipes containing the words \"salt\" or \"soy sauce\" from this recipe book.',
+        'answer': '',
         'img': '/static/images/image2.png'
     },
     '3': {
         'quiz_id': '3',
         'title': 'Searching Through Recipes',
         'instruction': 'Various other readers are looking at some other books, and would like your assistance in searching through it as well. Use your new commands to help these people find what they need! If you need a hint, type and enter h.',
-        'question': 'Person 3: I’m interested in Recipe3 in this book. Unfortunately, I don’t have a Dutch oven: can you search Recipe3 for the phrase “dutch oven” (case insensitive), so I know whether it’s essential or not?',
-        'answer': 'answer3',
+        'question': 'Person 3: I\'m interested in Recipe3 in this book. Unfortunately, I don\'t have a Dutch oven: can you search Recipe3 for the phrase \"dutch oven\" (case insensitive), so I know whether it\'s essential or not?',
+        'answer': '',
         'img': '/static/images/image3.png'
     },
     '4': {
         'quiz_id': '4',
         'title': 'Searching Through Recipes',
         'instruction': 'Various other readers are looking at some other books, and would like your assistance in searching through it as well. Use your new commands to help these people find what they need! If you need a hint, type and enter h.',
-        'question': 'Person 4: I love galettes, both savory and sweet. I’d like to find the names of all recipes that are making galettes in this book.',
-        'answer': 'answer4',
+        'question': 'Person 4: I love galettes, both savory and sweet. I\'d like to find the names of all recipes that are making galettes in this book.',
+        'answer': '',
         'img': '/static/images/image4.png'
     }
 }
