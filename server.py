@@ -232,7 +232,10 @@ quiz_dict = {
         'title': 'Searching Through Recipes',
         'instruction': 'Various other readers are looking at a recipe book, and would like your assistance in searching through them as well. Use your new commands to help these people find what they need! If you need a hint, type and enter h.',
         'question': 'Person 1: My favorite condiments are ketchup and mustard. I\'d like to find the names of recipes containing these ingredients in this recipe book.',
-        'answer': 'answer1',
+        'valid_flags': 'rnHclL',
+        'valid_pattern': 'pattern',
+        'valid_file': 'file',
+
         'img': '/static/images/image1.png'
     },
     '2': {
@@ -240,7 +243,9 @@ quiz_dict = {
         'title': 'Searching Through Recipes',
         'instruction': 'Various other readers are looking at some other books, and would like your assistance in searching through it as well. Use your new commands to help these people find what they need! If you need a hint, type and enter h.',
         'question': 'Person 2: I love salty food, especially things made with soy sauce. I\'d like to find the names of recipes containing the words \"salt\" or \"soy sauce\" from this recipe book.',
-        'answer': 'answer2',
+        'valid_flags': 'rnHclL',
+        'valid_pattern': 'pattern',
+        'valid_file': 'file',
         'img': '/static/images/image2.png'
     },
     '3': {
@@ -248,7 +253,9 @@ quiz_dict = {
         'title': 'Searching Through Recipes',
         'instruction': 'Various other readers are looking at some other books, and would like your assistance in searching through it as well. Use your new commands to help these people find what they need! If you need a hint, type and enter h.',
         'question': 'Person 3: I\'m interested in Recipe3 in this book. Unfortunately, I don\'t have a Dutch oven: can you search Recipe3 for the phrase \"dutch oven\" (case insensitive), so I know whether it\'s essential or not?',
-        'answer': 'answer3',
+        'valid_flags': 'rnHclL',
+        'valid_pattern': 'pattern',
+        'valid_file': 'file',
         'img': '/static/images/image3.png'
     },
     '4': {
@@ -256,7 +263,9 @@ quiz_dict = {
         'title': 'Searching Through Recipes',
         'instruction': 'Various other readers are looking at some other books, and would like your assistance in searching through it as well. Use your new commands to help these people find what they need! If you need a hint, type and enter h.',
         'question': 'Person 4: I love galettes, both savory and sweet. I\'d like to find the names of all recipes that are making galettes in this book.',
-        'answer': 'answer4',
+        'valid_flags': 'rnHclL',
+        'valid_pattern': 'pattern',
+        'valid_file': 'file',
         'img': '/static/images/image4.png'
     }
 }
@@ -325,11 +334,37 @@ def save_response():
     id = json_data["id"]
     response = json_data["response"]
     quiz_response[id].append(response)
-    quiz_score[id] = 1 if quiz_dict[str(id)]['answer'] == response else 0
 
-    return jsonify(quiz_score)
+    res = parseRequest(id, response)
+
+    quiz_score[id] = 1 if res == 'Correct!' == response else 0
+
+    return res
 
 # methods
+
+def parseRequest(id, req):
+    req = req.split()
+
+    if req[0] != 'grep':
+        return 'Please use grep as your first command of your answer'
+    
+    for i in range(1, len(req)):
+        if req[i][0] != '-':
+            break
+
+        for flag in req[i][1:]:
+            if flag not in quiz_dict[str(id)]['valid_flags']:
+                return 'Please use a correct flag for grep'
+    
+    if req[i] != quiz_dict[str(id)]['valid_pattern']:
+        return 'Please use a correct pattern'
+    
+    if req[i+1] != quiz_dict[str(id)]['valid_file']:
+        return 'Please search a correct file'
+    
+    return 'Correct!'
+        
 
 def logResponse(lesson_id, lesson_response):
 
