@@ -116,6 +116,23 @@ function setProgBar(id) {
     $("#lesson-prog-bar").text(val + "%");
   }
 
+  let els = document.getElementsByClassName('step');
+  let steps = [];
+  
+  function progress(stepNum) {
+    let p = stepNum * 15;
+    document.getElementsByClassName('percent_1')[0].style.width = `${p}%`;
+    document.getElementsByClassName('percent_2')[0].style.width = `${p}%`;
+    steps.forEach((e) => {
+      if (e.id <= stepNum) {
+        e.classList.add('completed');
+      }
+      if (e.id > stepNum) {
+        e.classList.remove('selected', 'completed');
+      }
+    });
+  }
+
 
 $(document).ready(function(){
     term = new Terminal({cursorBlink: "block", cols: 50, rows: 22, theme: {
@@ -156,5 +173,21 @@ $(document).ready(function(){
         }
 
     })
+
+    //create progress bar
+    Array.prototype.forEach.call(els, (e) => {
+        steps.push(e);
+        chapter_int = parseInt(currLesson["chapter_id"]);
+        console.log(chapter_int);
+        progress(chapter_int);
+    });
+
+    /*
+    var pb = new ldBar(document.getElementById('progress-bar'),{
+        "max": 5,
+        "min": 0,
+        "type": "stroke",
+    });
+    */
 
 }) 
