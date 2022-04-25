@@ -95,7 +95,7 @@ lessons = {
         "answer": "grep -i \"one\" BlackSheep.txt",
         "response": "One for the master,\r\nOne for the dame,\r\none for the little boy that lives down the lane.",
         "previous_lesson_id":"6",
-        "next_lesson_id": "7",
+        "next_lesson_id": "8",
     },
     "8": {
         "chapter": "The -i flag",

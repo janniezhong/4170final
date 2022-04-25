@@ -106,6 +106,17 @@ function updateTerminal(s){
     term.write('\r\n> ')
 }
 
+function setProgBar(id) {
+    var elem = document.getElementById("lesson-prog-bar");
+    var val = Math.round(100/14 * (parseInt(id)-1));
+    console.log(val)
+    elem.setAttribute("style", "width: " + val.toString() + "%;");
+    elem.setAttribute("aria-valuenow", val.toString());
+  
+    $("#lesson-prog-bar").text(val + "%");
+  }
+
+
 $(document).ready(function(){
     term = new Terminal({cursorBlink: "block", cols: 50, rows: 22, theme: {
         background: '#8d8b8bff'
@@ -116,7 +127,11 @@ $(document).ready(function(){
 
     updateCurrLesson(lesson_info)
     displayCurrLesson()
-
+    if (currLesson["lesson_id"] == "final"){
+        setProgBar("14")
+    } else {
+        setProgBar(currLesson["lesson_id"])
+    }
 
     term.onKey(e => {
         let code  = e.key.charCodeAt()
@@ -141,9 +156,5 @@ $(document).ready(function(){
         }
 
     })
-
-    $("#pdid").progressbar({
-        value:20
-    });
 
 }) 
