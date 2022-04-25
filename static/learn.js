@@ -56,7 +56,7 @@ function getNextLesson(){ // if the lesson is the last one, go to the quiz inste
             currLesson["response"] = result["response"]
             currLesson["previous_lesson_id"] = result["previous_lesson_id"]
             currLesson["next_lesson_id"] = result["next_lesson_id"]
-            updateTerminal(currLesson["answer"])
+            updateTerminal(currLesson["response"])
             if (currLesson["lesson_id"] == "final"){
                 lessonFinished = true
             }
