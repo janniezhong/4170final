@@ -77,7 +77,9 @@ function updateTerminal(s){
 }
 
 $(document).ready(function(){
-    term = new Terminal({cursorBlink: "block"});
+    term = new Terminal({cursorBlink: "block", cols: 50, rows: 22, theme: {
+        background: '#8d8b8bff'
+      }});
     term.open(document.getElementById('terminal'));
     term.write('Hi! \r\n')
 
