@@ -5,6 +5,30 @@ body {
     font-family: 'Anonymous Pro', monospace;
 
 }
+.top{
+    margin-top:20px;
+}
+.command{
+    color: #87bf6e;
+    font-weight:bold;
+}
+
+.flags {
+    color:#6e9dbf;
+    font-weight:bold;
+}
+
+.search-string{
+    color:#e06666;
+    font-weight:bold;
+
+}
+
+.location{
+    color:#b46ebf;
+    font-weight:bold;
+
+}
 .content{
     margin-top: 50px;
     margin-left:50px;
