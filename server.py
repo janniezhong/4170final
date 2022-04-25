@@ -305,6 +305,7 @@ def next_lesson():
     if lesson_response==lessons[lesson_id]["answer"]:
         return jsonify(lesson_return)
     else:
+        lesson_return["correct"] = "false"
         lesson_return["error"] = "MISC. error"
         return jsonify(lesson_response)
 
