@@ -173,7 +173,7 @@ lessons = {
         "answer": "grep -r \"horses\" *",
         "response": "favorite\HumptyDumpty.txt: All the king\'s horses",
         "previous_lesson_id":"12",
-        "next_lesson_id": "14",
+        "next_lesson_id": "final",
     },
     "final": {
         "chapter": "Combining flags",
