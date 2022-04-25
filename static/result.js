@@ -16,7 +16,14 @@ function printCongrats() {
 }
 
 $(document).ready(function(){
-    term = new Terminal({cursorBlink: "block"});
+    term = new Terminal({
+        cursorBlink: "block",
+        cols: 120,
+        rows: 30,
+        theme: {
+          background: "#8d8b8bff",
+        },
+      });
 
     printCongrats();
 
