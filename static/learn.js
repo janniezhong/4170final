@@ -85,6 +85,10 @@ function checkAnswer(){ // if the lesson is the last one, go to the quiz instead
 function finishLesson(){
 
     // pop up modal
+    $("#modal-button").trigger("click")
+    $(".modal-body").empty()
+    $(".modal-body").text(currLesson["feedback"])
+
     // allow next button
     if (currLesson["lesson_id"] == "final"){
         $("#next").attr("href", "/quiz/1")
@@ -123,6 +127,7 @@ $(document).ready(function(){
                 window.location.href = "/quiz/1"
             } else if (currLine) {
                 checkAnswer()
+                currLine=""
             }
         } else if (code < 32) { // Control
             return;
@@ -141,4 +146,5 @@ $(document).ready(function(){
     $("#pdid").progressbar({
         value:20
     });
+
 }) 

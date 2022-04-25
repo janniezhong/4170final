@@ -18,6 +18,8 @@
     integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2"
     crossorigin="anonymous"></script>
   <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
+
+  
   <!-- google fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -47,12 +49,12 @@
     </div>
   </nav> -->
 
-  <!-- <div style="position: relative;"> -->
+  <div style="position: relative;">
     <div class="container">
       {% block content %}
       {% endblock %}
     </div>
-  <!-- </div> -->
+  </div>
 </body>
 
 </html>
