@@ -10,8 +10,16 @@ body {
     margin-left:50px;
 }
 .title {
-    font-size: large;
-    font-style: bold;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.prompt{
+    font-size: small;
+    margin-bottom: 20px;
+}
+.instruction{
+    font-size:normal;
 }
 .nav{
     margin-top: 75px;

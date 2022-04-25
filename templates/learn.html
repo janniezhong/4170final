@@ -4,7 +4,10 @@
 
 <script type="text/javascript" src="{{ url_for('static', filename = 'learn.js') }}"></script>
 
-<!-- intake data from flask -->
+
+<script>
+    let lesson_info = {{ lesson_info| tojson}}
+</script>
 
 <div class = "row">
     <div class = "col-md-7">
@@ -28,14 +31,13 @@
     </div>
 </div>
 <div class = "nav">
-
-    <a class ="navbuttons">
+    <a class ="navbuttons" id="prev">
         &#60; prev
     </a>
     <div class="progress">
         <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
     </div>  
-    <a class ="navbuttons">
+    <a class ="navbuttons" id="next">
         next &#62;
     </a>
 </div>

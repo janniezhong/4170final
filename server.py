@@ -11,11 +11,11 @@ lessons = {
         "chapter_id": "1",
         "lesson_id": "1",
         "topic": "How to search for words in files I",
-        "prompt": "grep is a command in the shell often used for searching\r\n\r\nAt its simplest, grep can be used to search for words in files.",
-        "feedback": "",
-        "instruction": "Type \"grep \"birthday\" HappyBirthday.txt\" in the terminal",
+        "prompt": "grep is a command in the shell often used for searching.\r\n\r\nAt its simplest, grep can be used to search for words in files.",
+        "feedback": "Looks good! grep is the command, \"birthday\" is the string to search for, and HappyBirthday.txt is the file in which to look for it.",
+        "instruction": "Try typing \"grep \"birthday\" HappyBirthday.txt\" in the terminal.",
         "answer": "grep \"birthday\" HappyBirthday.txt",
-        "response": "Happy birthday to you\r\nHaokayppy birthday to you\r\nHappy birthday, dear [name]\r\nHappy birthday to you.",
+        "response": "Happy birthday to you\r\nHappy birthday to you\r\nHappy birthday, dear [name]\r\nHappy birthday to you.",
         "previous_lesson_id": "1",
         "next_lesson_id": "2",
     },
@@ -290,8 +290,8 @@ def result():
     return render_template('result.html', score=sum(quiz_score.values()))
 
 # ajax
-@app.route('/next_lesson', methods=['GET', 'POST'])
-def next_lesson():
+@app.route('/check_answer', methods=['GET', 'POST'])
+def check_answer():
     global lessons
 
     json_data=request.get_json()
@@ -307,7 +307,7 @@ def next_lesson():
     else:
         lesson_return["correct"] = "false"
         lesson_return["error"] = "MISC. error"
-        return jsonify(lesson_response)
+        return jsonify(lesson_return)
 
 
 @app.route('/save_response', methods=['POST'])

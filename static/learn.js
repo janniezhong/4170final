@@ -18,47 +18,60 @@ let lessonFinished = false
 
 var term;
 
-function checkAnswer(){
-
-    if (currLine == currLesson["answer"]){ // if the answer is correct
-        getNextLesson()
-    } else {
-        term.write(" \r\n > That wasn't quite right :/ Try again? \r\n > ")
-    }
-
-    currLine = "" // clear line
+function updateCurrLesson(lesson_info){
+    currLesson["chapter"] = lesson_info["chapter"]
+    currLesson["chapter_id"] = lesson_info["chapter_id"]
+    currLesson["lesson_id"] = lesson_info["lesson_id"]
+    currLesson["topic"] = lesson_info["topic"]
+    currLesson["prompt"] = lesson_info["prompt"]
+    currLesson["feedback"] = lesson_info["feedback"]
+    currLesson["instruction"] = lesson_info["instruction"]
+    currLesson["answer"] = lesson_info["answer"]
+    currLesson["response"] = lesson_info["response"]
+    currLesson["previous_lesson_id"] = lesson_info["previous_lesson_id"]
+    currLesson["next_lesson_id"] = lesson_info["next_lesson_id"]
 }
 
-function getNextLesson(){ // if the lesson is the last one, go to the quiz instead
+function displayCurrLesson(){
+    // display title
+    $(".title").empty()
+    console.log(currLesson["topic"])
+    $(".title").text(currLesson["topic"])
+
+    // display prompt
+    $(".prompt").empty()
+    $(".prompt").text(currLesson["prompt"])
+
+    // display instruction
+    $(".instruction").empty()
+    $(".instruction").text(currLesson["instruction"])
+
+    $("#prev").attr("href", "/learn/"+currLesson["previous_lesson_id"])
+
+}
+
+function checkAnswer(){ // if the lesson is the last one, go to the quiz instead
 
     data = {
-        "id": currLesson["next_lesson_id"],
+        "id": currLesson["lesson_id"],
         "response": currLine
     }
     $.ajax({
         type: "POST",
-        url: "/next_lesson",                
+        url: "/check_answer",                
         dataType : "json",
         contentType: "application/json; charset=utf-8",
         data : JSON.stringify(data),
         success: function(result){
             console.log("success!")
             console.log(result)
-
-            currLesson["chapter"] = result["chapter"]
-            currLesson["chapter_id"] = result["chapter_id"]
-            currLesson["lesson_id"] = result["lesson_id"]
-            currLesson["topic"] = result["topic"]
-            currLesson["prompt"] = result["prompt"]
-            currLesson["feedback"] = result["feedback"]
-            currLesson["instruction"] = result["instruction"]
-            currLesson["answer"] = result["answer"]
-            currLesson["response"] = result["response"]
-            currLesson["previous_lesson_id"] = result["previous_lesson_id"]
-            currLesson["next_lesson_id"] = result["next_lesson_id"]
-            updateTerminal(currLesson["response"])
-            if (currLesson["lesson_id"] == "final"){
-                lessonFinished = true
+            let correct = result["correct"]
+            let error = result["error"]
+            if (correct == "true"){
+                updateTerminal(currLesson["response"])
+                finishLesson()
+            } else {
+                updateTerminal(error)
             }
         },
         error: function(request, status, error){
@@ -69,11 +82,24 @@ function getNextLesson(){ // if the lesson is the last one, go to the quiz inste
         }
     });
 }
+function finishLesson(){
+
+    // pop up modal
+    // allow next button
+    if (currLesson["lesson_id"] == "final"){
+        $("#next").attr("href", "/quiz/1")
+    } else {
+        $("#next").attr("href", "/learn/"+currLesson["next_lesson_id"])
+    }
+
+    // disallow typing in terminal
+    // term.onKey(e => {})
+}
 
 function updateTerminal(s){
     term.write('\r\n')
     term.write(s)
-    term.write('\r\n > ')
+    term.write('\r\n> ')
 }
 
 $(document).ready(function(){
@@ -81,9 +107,13 @@ $(document).ready(function(){
         background: '#8d8b8bff'
       }});
     term.open(document.getElementById('terminal'));
-    term.write('Hi! \r\n')
+    term.write("> ")
+    console.log(lesson_info)
 
-    getNextLesson()
+    updateCurrLesson(lesson_info)
+    displayCurrLesson()
+
+    // getNextLesson()
 
     term.onKey(e => {
         let code  = e.key.charCodeAt()
