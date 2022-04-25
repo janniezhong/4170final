@@ -1,11 +1,17 @@
 let currLine = "";
 
 let currLesson = {
+    "chapter": "This is the current chapter",
+    "chapter_id": "0",
     "lesson_id": "0",
-    "title": "this is the title",
-    "text": "this is the prompt",
-    "answer": "this is the correct answer",
-    "next_lesson_id": "1"
+    "topic": "This is the topic",
+    "prompt": "This is the prompt.",
+    "feedback": "This is the feedback",
+    "instruction": "This is the instruction",
+    "answer": "This is the answer",
+    "response": "This is the response",
+    "previous_lesson_id": "0",
+    "next_lesson_id": "1",
 }
 
 let lessonFinished = false
@@ -38,13 +44,19 @@ function getNextLesson(){ // if the lesson is the last one, go to the quiz inste
         success: function(result){
             console.log("success!")
             console.log(result)
-        
+
+            currLesson["chapter"] = result["chapter"]
+            currLesson["chapter_id"] = result["chapter_id"]
             currLesson["lesson_id"] = result["lesson_id"]
-            currLesson["title"] = result["title"]
-            currLesson["text"] = result["text"]
+            currLesson["topic"] = result["topic"]
+            currLesson["prompt"] = result["prompt"]
+            currLesson["feedback"] = result["feedback"]
+            currLesson["instruction"] = result["instruction"]
             currLesson["answer"] = result["answer"]
+            currLesson["response"] = result["response"]
+            currLesson["previous_lesson_id"] = result["previous_lesson_id"]
             currLesson["next_lesson_id"] = result["next_lesson_id"]
-            updateTerminal(currLesson["text"])
+            updateTerminal(currLesson["answer"])
             if (currLesson["lesson_id"] == "final"){
                 lessonFinished = true
             }
@@ -93,4 +105,8 @@ $(document).ready(function(){
         }
 
     })
+
+    $("#pdid").progressbar({
+        value:30
+    });
 }) 
