@@ -277,9 +277,9 @@ quiz_score = {int(quiz_id) : 0 for quiz_id in quiz_dict}
 def home():
     return render_template('index.html') 
 
-@app.route('/learn')
-def learn():
-    return render_template('learn.html')
+@app.route('/learn/<lesson_id>')
+def learn(lesson_id=None):
+    return render_template('learn.html', lesson_info=lessons[lesson_id])
 
 @app.route('/quiz/<quiz_id>')
 def quiz(quiz_id=None):
@@ -300,9 +300,14 @@ def next_lesson():
     lesson_response = json_data["response"]
     logResponse(lesson_id, lesson_response)
     print(lesson_id, lesson_response)
-
-    current_lesson = lessons[lesson_id]
-    return jsonify(current_lesson)
+    lesson_return = {"correct":"true",
+                     "error":""}
+    if lesson_response==lessons[lesson_id]["answer"]:
+        return jsonify(lesson_return)
+    else:
+        lesson_return["correct"] = "false"
+        lesson_return["error"] = "MISC. error"
+        return jsonify(lesson_response)
 
 
 @app.route('/save_response', methods=['POST'])
@@ -313,7 +318,6 @@ def save_response():
     response = json_data["response"]
     quiz_response[id].append(response)
     quiz_score[id] = 1 if quiz_dict[str(id)]['answer'] == response else 0
-
 
     return jsonify(quiz_score)
 
