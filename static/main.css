@@ -70,10 +70,61 @@ body {
     overflow-y: auto;
   }
 
-.pbid {
-    background: #cedc98;
-    border: 1px solid #DDDDDD;
-    color: #333333;
-    font-weight: bold;
- }
+#progress-bar {
+    width:100% !important;
+}
+
+.steps {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: auto;
+  }
+  .step {
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border: 2px solid #ACACA6;
+    border-radius: 50%;
+    transition: background 1s;
+  }
+  .step.selected {
+    border: 2px solid #4B81BD;   
+  }
+  .step.completed {
+    border: 2px solid #4B81BD;
+    background: #4B81BD; 
+  }
+  .progress_1 {
+    position: relative;
+    width: 100%;
+    height: 50%;
+    border-bottom: 2px solid #ACACA6;
+    z-index: -1;
+  }
+  .percent_1 {
+    position: relative;
+    width: 0;
+    max-width: 100%;
+    height: 100%;
+    border-bottom: 2px solid #4B81BD;
+    z-index: 1;
+    transition: width 1s;
+  }
+  .progress_2 {
+    position: relative;
+    width: 100%;
+    height: 50%;
+    border-top: 2px solid #ACACA6;
+    z-index: -1;
+  }
+  .percent_2 {
+    position: relative;
+    width: 0;
+    max-width: 100%;
+    height: 100%;
+    border-top: 2px solid #4B81BD;
+    z-index: 1;
+    transition: width 1s;
+  }
  
