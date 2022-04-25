@@ -102,3 +102,10 @@ body {
 .stepper-item:last-child::after {
     content: none;
 }
+
+#pbid {
+    background: #cedc98;
+    border: 1px solid #DDDDDD;
+    color: #333333;
+    font-weight: bold;
+ }
