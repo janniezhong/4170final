@@ -107,6 +107,6 @@ $(document).ready(function(){
     })
 
     $("#pdid").progressbar({
-        value:30
+        value:20
     });
 }) 
