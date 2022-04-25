@@ -117,7 +117,6 @@ $(document).ready(function(){
     updateCurrLesson(lesson_info)
     displayCurrLesson()
 
-    // getNextLesson()
 
     term.onKey(e => {
         let code  = e.key.charCodeAt()
