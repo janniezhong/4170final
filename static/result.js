@@ -20,6 +20,8 @@ $(document).ready(function(){
 
     printCongrats();
 
+    $("#prev").attr("href",  "/quiz/4")
+
     term.open(document.getElementById('terminal'));
 
     term.write("\r\n  score=" + score.toString() + "\r\n")

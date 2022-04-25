@@ -19,7 +19,7 @@ function checkAnswer(currLine, qid) {
 
       if (res == 1) {
         // if the answer is correct
-        getNextPage(qid);
+        $("#next").attr("href", getNextPage(qid));
       } else {
         term.write("\r\n That wasn't quite right :/ Try again? \r\n > ");
       }
@@ -33,12 +33,20 @@ function checkAnswer(currLine, qid) {
   });
 }
 
+function getPrevPage(qid) {
+  if (qid == 1) {
+    return "/learn/final";
+  } else {
+    return "/quiz/" + (qid - 1).toString();
+  }
+}
+
 function getNextPage(qid) {
   // if the lesson is the last one, go to the quiz instead
   if (qid == 4) {
-    window.location.pathname = "/quiz/result";
+    return "/quiz/result";
   } else {
-    window.location.pathname = "/quiz/" + (qid + 1).toString();
+    return "/quiz/" + (qid + 1).toString();
   }
 }
 
@@ -112,10 +120,21 @@ function addText() {
 
   $("<p>" + quiz_info["question"] + "</p>").appendTo(".prompt");
 }
+
 function addTitle(pid) {
   $(".title").empty();
   $("<p>" + "Quiz " + pid + "</p>").appendTo(".title");
 }
+
+function setProgBar(qid) {
+  var elem = document.getElementById("quiz-prog-bar");
+  var val = 25 * (qid - 1);
+  elem.setAttribute("style", "width: " + val.toString() + "%;");
+  elem.setAttribute("aria-valuenow", val.toString());
+
+  $("#quiz-prog-bar").text(val + "%");
+}
+
 $(document).ready(function () {
   addText();
 
@@ -128,13 +147,13 @@ $(document).ready(function () {
     },
   });
 
-
   term.open(document.getElementById("terminal"));
 
   var qidNum = parseInt(getCurrQuizNum());
 
   addTitle(qidNum);
   renderTree(qidNum);
+  setProgBar(qidNum);
 
   updateTerminal("");
 
@@ -143,6 +162,8 @@ $(document).ready(function () {
   };
 
   container.currLine = "";
+
+  $("#prev").attr("href", getPrevPage(qidNum));
 
   term.onKey((e) => {
     let code = e.key.charCodeAt();
