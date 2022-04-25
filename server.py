@@ -1,4 +1,4 @@
-from urllib import response
+from urllib import Response
 from flask import Flask
 from flask import render_template
 from flask import Response, request, jsonify
@@ -40,7 +40,7 @@ lessons = {
         "prompt": "If we want to search for different strings at once,\r\n(say \"you\" and \"dear\") we use the pipe operator, \"|\", to indicate \"or\".",
         "feedback": "Every line contains either \"you\" or \"dear\".",
         "instruction": "Try typing \"grep \"you | dear\" HappyBirthday.txt\".",
-        "answer": "grep \"you | dear\" HappyBirthday",
+        "answer": "grep \"you | dear\" HappyBirthday.txt",
         "response": "Happy birthday to you\r\nHappy birthday to you\r\nHappy birthday, dear [name]\r\nHappy birthday to you.",
         "previous_lesson_id":"2",
         "next_lesson_id": "4",
@@ -53,7 +53,7 @@ lessons = {
         "prompt": "How would you search for lines that contain \"to\" and \",\"?",
         "feedback": "Again, every line contains either \"to\" or \",\".",
         "instruction": "Try typing \"grep \"to | ,\" HappyBirthday.txt\".",
-        "answer": "grep \"to | ,\" HappyBirthday",
+        "answer": "grep \"to | ,\" HappyBirthday.txt",
         "response": "Happy birthday to you\r\nHappy birthday to you\r\nHappy birthday, dear [name]\r\nHappy birthday to you.",
         "previous_lesson_id":"3",
         "next_lesson_id": "5",
@@ -239,7 +239,7 @@ quiz_dict = {
         'quiz_id': '2',
         'title': 'Searching Through Recipes',
         'instruction': 'Various other readers are looking at some other books, and would like your assistance in searching through it as well. Use your new commands to help these people find what they need! If you need a hint, type and enter h.',
-        'question': 'Person 2: I love salty food, especially things made with soy sauce. I\'d like to find the names of recipes containing the words \"salt\"" or \"soy sauce\"" from this recipe book.',
+        'question': 'Person 2: I love salty food, especially things made with soy sauce. I\'d like to find the names of recipes containing the words \"salt\" or \"soy sauce\" from this recipe book.',
         'answer': 'answer2',
         'img': '/static/images/image2.png'
     },
@@ -247,7 +247,7 @@ quiz_dict = {
         'quiz_id': '3',
         'title': 'Searching Through Recipes',
         'instruction': 'Various other readers are looking at some other books, and would like your assistance in searching through it as well. Use your new commands to help these people find what they need! If you need a hint, type and enter h.',
-        'question': 'Person 3: I\'m interested in Recipe3 in this book. Unfortunately, I don\'t have a Dutch oven: can you search Recipe3 for the phrase \"dutch oven\"" (case insensitive), so I know whether it\'s essential or not?',
+        'question': 'Person 3: I\'m interested in Recipe3 in this book. Unfortunately, I don\'t have a Dutch oven: can you search Recipe3 for the phrase \"dutch oven\" (case insensitive), so I know whether it\'s essential or not?',
         'answer': 'answer3',
         'img': '/static/images/image3.png'
     },
@@ -255,7 +255,7 @@ quiz_dict = {
         'quiz_id': '4',
         'title': 'Searching Through Recipes',
         'instruction': 'Various other readers are looking at some other books, and would like your assistance in searching through it as well. Use your new commands to help these people find what they need! If you need a hint, type and enter h.',
-        'question': 'Person 4: I love galettes, both savory and sweet. I\'d like to find the names of all recipes that are making a \"galette\" (case insensitive) in this book.',
+        'question': 'Person 4: I love galettes, both savory and sweet. I\'d like to find the names of all recipes that are making galettes in this book.',
         'answer': 'answer4',
         'img': '/static/images/image4.png'
     }
