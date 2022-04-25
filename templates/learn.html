@@ -4,9 +4,40 @@
 
 <script type="text/javascript" src="{{ url_for('static', filename = 'learn.js') }}"></script>
 
-<div>
-    <div id="terminal"></div>
-    <div id="pbid"></div>
+<!-- intake data from flask -->
+
+<div class = "row">
+    <div class = "col-md-7">
+        <div class = "content">
+            <div class = "title">
+                title here!
+            </div>
+            <div class = "prompt">
+                here is the prompt, which will tell people what to do.
+            </div>
+
+            <div class="instruction">
+                and here's the instruction!
+            </div>
+        </div>
+        
+    </div>
+    <div class = "col-md-5">
+        <div id="terminal"></div>
+        <!-- <div id="pbid" class="pbid"></div> -->
+    </div>
+</div>
+<div class = "nav">
+
+    <a class ="navbuttons">
+        &#60; prev
+    </a>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+    </div>  
+    <a class ="navbuttons">
+        next &#62;
+    </a>
 </div>
 
 {% endblock %}
