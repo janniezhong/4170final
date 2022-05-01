@@ -128,3 +128,52 @@ body {
     transition: width 1s;
   }
  
+  /* HomePage */
+
+  .homeTitle{
+    text-align: center;
+    border:3px solid beige;
+    background-color: lightgreen;
+    font-size: 50px;
+    color: whitesmoke;
+    height:100px;
+    width:70%;
+    margin: auto;
+  }
+
+  .gifAnimation{
+    margin: auto;
+    padding: 5%;
+    text-align: center;
+  }
+
+  #grepGif{
+    filter: drop-shadow(30px 10px 4px lightgray);
+  }
+  
+  #leftIcon{
+    padding-right:40px;
+    text-align:right
+  }
+
+  #rightIcon{
+    padding-left:40px;
+    text-align:left
+  }
+
+  .navbutton{
+    height:125px;
+    width: 125px;
+    filter: drop-shadow(30px 10px 4px lightgray);
+    border-radius:25px;
+    border: 2px solid lightgreen;
+    position:relative;
+    margin: 0 auto;
+  }
+
+  .navbutton:hover{
+    opacity:0.7;
+    cursor:pointer;
+  }
+
+
