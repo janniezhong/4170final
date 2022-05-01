@@ -1,5 +1,8 @@
 $(document).ready(function(){
-    $(document).keypress(function(event){
+    $("#learnicon").click(function(event){
         window.location.href = "/learn/1"
+    });
+    $("#quizicon").click(function(event){
+        window.location.href = "/quiz/1"
     });
 })
