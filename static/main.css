@@ -30,6 +30,7 @@ a:hover {
 
 
 #sidebar .sidebar-header {
+  font-size: xx-large;
   padding-left: 30px;
   padding-top: 30px;
   padding-bottom: 10px;
@@ -39,7 +40,6 @@ a:hover {
   display: block;
   color: white;
   fill: white;
-  font-size: x-large;
 }
 
 #sidebar .sidebar-header a:hover {
@@ -61,11 +61,13 @@ a:hover {
   color: white;
 }
 #sidebar ul li a:hover {
+  font-size: x-large;
   color: #87bf6eff;
   background: #fff;
 }
 
 #sidebar ul li.active > a, a[aria-expanded="true"] {
+  font-size: x-large;
   color: #fff;
   background: #87bf6eff;
 }
@@ -125,9 +127,13 @@ a[data-toggle="collapse"] {
 .dropdown-toggle::after {
   display: block;
   position: absolute;
-  top: 50%;
+  top: 40%;
   right: 20px;
-  transform: translateY(-50%);
+  transform: rotate(90deg);
+  transition: transform .35s ease;
+}
+.dropdown-toggle[aria-expanded="true"]::after {
+  transform: rotate(0deg);
 }
 
 .content{

@@ -169,4 +169,12 @@ $(document).ready(function(){
 
     })
 
+    $("#bottom_next").click(function(event){
+        if (currLesson["lesson_id"] == "final"){
+            window.location.href="/quiz/1"
+        } else {
+            window.location.href="/learn/"+currLesson["next_lesson_id"]
+        }
+    });
+
 }) 
