@@ -255,5 +255,5 @@ $(document).ready(function () {
             term.write(e.key);
             container.cursorPos++;
         }
-
+    });
 });
