@@ -2,7 +2,8 @@ var term;
 
 var container = {
     currLine: "",
-    keyboardContent: ""
+    keyboardContent: "",
+    cursorPos: 0
 };
 
 function checkAnswer(currLine, qid) {
@@ -194,6 +195,7 @@ $(document).ready(function () {
         if (arg.ctrlKey && arg.code === "KeyV" && arg.type === "keydown") {
             term.write(container.keyboardContent);
             container.currLine = container.keyboardContent;
+            container.cursorPos = container.currLine.length;
             return false;
         }
 
@@ -203,22 +205,36 @@ $(document).ready(function () {
     term.onKey((e) => {
         let code = e.key.charCodeAt();
 
-        getContentFromClipboard();
-
-        if (e.key == "KeyV" && e.key.ctrlKey) {
-            this.write(keyboardContent)
-            container.currLine += keyboardContent
-            return;
-        }
-
         if (code == 13) {
             if (container.currLine) {
                 checkAnswer(container.currLine, qidNum);
                 container.currLine = "";
+                container.cursorPos = 0;
             }
         } else if (code < 32) {
             // Control
-            return;
+            if (code != 27) {
+                return;
+            }
+
+            switch (e.key) {
+                case '\x1b[D':
+                    if (container.cursorPos > 0) {
+                        container.cursorPos--;
+                        term.write(e.key);
+                    }
+                    break;
+
+                case '\x1b[C':
+                    if (container.cursorPos < container.currLine.length) {
+                        container.cursorPos++;
+                        term.write(e.key)
+                    }
+                    break
+
+                default:
+                    break;
+            }
         } else if (code == 127 || code == 8) {
             if (container.currLine) {
                 container.currLine = container.currLine.slice(
@@ -230,6 +246,7 @@ $(document).ready(function () {
         } else {
             container.currLine += e.key;
             term.write(e.key);
+            container.cursorPos++;
         }
     });
 });
