@@ -1,9 +1,7 @@
 body {
     background-color: #f9fcf5ff;
-    /* padding-top: 50px; */
     color: #434343;
     font-family: 'Anonymous Pro', monospace;
-
 }
 
 a {
@@ -63,7 +61,7 @@ a:hover {
 #sidebar ul li a:hover {
   font-size: x-large;
   color: #87bf6eff;
-  background: #fff;
+  background: #fcf3e6ff;
 }
 
 #sidebar ul li.active > a, a[aria-expanded="true"] {
@@ -183,83 +181,19 @@ a[data-toggle="collapse"] {
 #progress-bar {
     width:100% !important;
 }
-
-/* .steps {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    width: auto;
-  }
-  .step {
-    width: 20px;
-    height: 20px;
-    background: #fff;
-    border: 2px solid #ACACA6;
-    border-radius: 50%;
-    transition: background 1s;
-  }
-  .step.selected {
-    border: 2px solid #4B81BD;   
-  }
-  .step.completed {
-    border: 2px solid #4B81BD;
-    background: #4B81BD; 
-  }
-  .progress_1 {
-    position: relative;
-    width: 100%;
-    height: 50%;
-    border-bottom: 2px solid #ACACA6;
-    z-index: -1;
-  }
-  .percent_1 {
-    position: relative;
-    width: 0;
-    max-width: 100%;
-    height: 100%;
-    border-bottom: 2px solid #4B81BD;
-    z-index: 1;
-    transition: width 1s;
-  }
-  .progress_2 {
-    position: relative;
-    width: 100%;
-    height: 50%;
-    border-top: 2px solid #ACACA6;
-    z-index: -1;
-  }
-  .percent_2 {
-    position: relative;
-    width: 0;
-    max-width: 100%;
-    height: 100%;
-    border-top: 2px solid #4B81BD;
-    z-index: 1;
-    transition: width 1s;
-  } */
  
   /* HomePage */
 
   .homeTitle{
     text-align: center;
-    /* background-color: #87bf6eff; */
     font-size: 60px;
     color: #87bf6eff;
-    /* height:100px; */
-    /* width:70%; */
     text-align: center;
     margin-top: 60px;
   }
 
   .gifAnimation{
-    /* margin: auto;  */
-    /* width:50px;
-    height: auto; */
     text-align: center;
-  }
-
-  #grepGif{
-    /* filter: drop-shadow(30px 10px 4px lightgray); */
   }
   
   #leftIcon{
