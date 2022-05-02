@@ -51,7 +51,7 @@ function getNextPage(qid) {
 
     // if the lesson is the last one, go to the quiz instead
     if (qid == 4) {
-        return "/quiz/result";
+        return "/result";
     } else {
         return "/quiz/" + (qid + 1).toString();
     }
