@@ -48,12 +48,17 @@ function getPrevPage(qid) {
 }
 
 function getNextPage(qid) {
+
     // if the lesson is the last one, go to the quiz instead
     if (qid == 4) {
         return "/quiz/result";
     } else {
         return "/quiz/" + (qid + 1).toString();
     }
+
+  // if the lesson is the last one, go to the quiz instead
+
+
 }
 
 function updateTerminal(s) {
@@ -141,6 +146,7 @@ function setProgBar(qid) {
     $("#quiz-prog-bar").text(val + "%");
 }
 
+
 function getContentFromClipboard() {
     navigator.clipboard
         .readText()
@@ -148,6 +154,7 @@ function getContentFromClipboard() {
             container.keyboardContent = copiedText;
         });
 }
+
 
 function putContentToClipboard(text) {
     navigator.clipboard.writeText(text).then(() => {
@@ -248,5 +255,5 @@ $(document).ready(function () {
             term.write(e.key);
             container.cursorPos++;
         }
-    });
+
 });

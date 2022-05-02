@@ -49,11 +49,13 @@ function displayCurrLesson() {
     $(".instruction").empty()
     $(".instruction").text(currLesson["instruction"])
 
+
     $("#prev").attr("href", "/learn/" + currLesson["previous_lesson_id"])
 
 }
 
 function checkAnswer() { // if the lesson is the last one, go to the quiz instead
+
 
     data = {
         "id": currLesson["lesson_id"],
@@ -98,6 +100,10 @@ function finishLesson() {
     } else {
         $("#next").attr("href", "/learn/" + currLesson["next_lesson_id"])
     }
+
+//     $("#feedback").empty()
+//     $("#feedback").append(currLesson["feedback"])
+
 
     // disallow typing in terminal
     // term.onKey(e => {})
@@ -159,6 +165,7 @@ $(document).ready(function () {
             background: '#8d8b8bff'
         }
     });
+
     term.open(document.getElementById('terminal'));
     term.write("> ")
     console.log(lesson_info)
@@ -238,20 +245,12 @@ $(document).ready(function () {
 
     })
 
-    //create progress bar
-    Array.prototype.forEach.call(els, (e) => {
-        steps.push(e);
-        chapter_int = parseInt(currLesson["chapter_id"]);
-        console.log(chapter_int);
-        progress(chapter_int);
+    $("#bottom_next").click(function(event){
+        if (currLesson["lesson_id"] == "final"){
+            window.location.href="/quiz/1"
+        } else {
+            window.location.href="/learn/"+currLesson["next_lesson_id"]
+        }
     });
-
-    /*
-    var pb = new ldBar(document.getElementById('progress-bar'),{
-        "max": 5,
-        "min": 0,
-        "type": "stroke",
-    });
-    */
 
 })
