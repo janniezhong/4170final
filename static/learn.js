@@ -131,7 +131,7 @@ function setProgBar(id) {
 
 $(document).ready(function(){
     term = new Terminal({cursorBlink: "block", cols: 75, rows: 13, fontSize: 13,theme: {
-        background: '#8d8b8bff',
+        background: '#434343ff',
       }});
     term.open(document.getElementById('terminal'));
     term.write("> ")

@@ -293,7 +293,7 @@ def learn(lesson_id=None):
 def quiz(quiz_id=None):
     return render_template('quiz.html', quiz_info=quiz_dict[quiz_id], navbar_info=navbar_info())
 
-@app.route('/quiz/result')
+@app.route('/result')
 def result():
     return render_template('result.html', score=sum(quiz_score.values()), navbar_info=navbar_info())
 

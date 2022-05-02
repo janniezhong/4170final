@@ -44,7 +44,7 @@ function getPrevPage(qid) {
 function getNextPage(qid) {
   // if the lesson is the last one, go to the quiz instead
   if (qid == 4) {
-    return "/quiz/result";
+    return "/result";
   } else {
     return "/quiz/" + (qid + 1).toString();
   }
@@ -138,16 +138,12 @@ function setProgBar(qid) {
 $(document).ready(function () {
   addText();
 
-  term = new Terminal({
-    cursorBlink: "block",
-    cols: 50,
-    rows: 22,
-    theme: {
-      background: "#8d8b8bff",
-    },
-  });
+  term = new Terminal({cursorBlink: "block", cols: 75, rows: 13, fontSize: 13,theme: {
+    background: '#434343ff',
+  }});
 
   term.open(document.getElementById("terminal"));
+  term.write("> ")
 
   var qidNum = parseInt(getCurrQuizNum());
 
