@@ -3,7 +3,21 @@ body {
     color: #434343;
     font-family: 'Anonymous Pro', monospace;
 }
+#cong{
+  font-size: 100px;
+  color:greenyellow;
+  text-align: center;
+}
+.link{
+  padding-left:20px;
+  padding-right:20px;
 
+}
+.linka{
+
+  color:#87bf6eff;
+
+}
 a {
   color: white;
 }
@@ -192,6 +206,13 @@ a[data-toggle="collapse"] {
     margin-top: 60px;
   }
 
+.pbid {
+    background: #cedc98;
+    border: 1px solid #DDDDDD;
+    color: #333333;
+    font-weight: bold;
+ }
+ 
   .gifAnimation{
     text-align: center;
   }
