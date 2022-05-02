@@ -51,6 +51,11 @@ function displayCurrLesson() {
 
 
     $("#prev").attr("href", "/learn/" + currLesson["previous_lesson_id"])
+    if (currLesson["lesson_id"] == "final") {
+        $("#next").attr("href", "/quiz/1")
+    } else {
+        $("#next").attr("href", "/learn/" + currLesson["next_lesson_id"])
+    }
 
 }
 
@@ -89,20 +94,8 @@ function checkAnswer() { // if the lesson is the last one, go to the quiz instea
 }
 function finishLesson() {
 
-    // pop up modal
-    $("#modal-button").trigger("click")
-    $(".modal-body").empty()
-    $(".modal-body").text(currLesson["feedback"])
-
-    // allow next button
-    if (currLesson["lesson_id"] == "final") {
-        $("#next").attr("href", "/quiz/1")
-    } else {
-        $("#next").attr("href", "/learn/" + currLesson["next_lesson_id"])
-    }
-
-//     $("#feedback").empty()
-//     $("#feedback").append(currLesson["feedback"])
+    $("#feedback").empty()
+    $("#feedback").append(currLesson["feedback"])
 
 
     // disallow typing in terminal
@@ -161,8 +154,8 @@ function putContentToClipboard(text) {
 
 $(document).ready(function () {
     term = new Terminal({
-        cursorBlink: "block", cols: 50, rows: 22, theme: {
-            background: '#8d8b8bff'
+        cursorBlink: "block", cols: 80, rows: 13, fontSize:12, theme: {
+            background: '#434343ff'
         }
     });
 

@@ -169,15 +169,12 @@ $(document).ready(function () {
     addText();
 
     term = new Terminal({
-        cursorBlink: "block",
-        cols: 50,
-        rows: 22,
-        theme: {
-            background: "#8d8b8bff",
-        },
+      cursorBlink: "block", cols: 80, rows: 13, fontSize:12, theme: {
+          background: '#434343ff'
+      }
     });
-
     term.open(document.getElementById("terminal"));
+    term.write("> ")
 
     var qidNum = parseInt(getCurrQuizNum());
 
@@ -188,6 +185,7 @@ $(document).ready(function () {
     updateTerminal("");
 
     $("#prev").attr("href", getPrevPage(qidNum));
+    $("#next").attr("href", getNextPage(qidNum));
 
     term.attachCustomKeyEventHandler((arg) => {
         getContentFromClipboard();
