@@ -3,6 +3,121 @@ body {
     padding-top: 50px;
     color: #434343;
     font-family: 'Anonymous Pro', monospace;
+<<<<<<< Updated upstream
+=======
+}
+
+a {
+  color: white;
+}
+
+a:hover {
+  color:#87bf6eff;
+}
+
+.wrapper {
+  display: flex;
+  align-items: stretch;
+
+
+}
+
+#sidebar {
+  min-width: 250px;
+  max-width: 250px;
+  min-height: 100vh;
+  background: #87bf6eff;
+  color: #fff;
+  transition: all 0.3s;
+}
+
+
+#sidebar .sidebar-header {
+  font-size: xx-large;
+  padding-left: 30px;
+  padding-top: 30px;
+  padding-bottom: 10px;
+  padding-right: 30px;
+
+  background: #87bf6eff;
+  display: block;
+  color: white;
+  fill: white;
+}
+#cong{
+  font-size: 100PX;
+  color: green;
+  text-align: center;
+  
+}
+.b-home-page{
+  color: green;
+  background: #87bf6eff;
+}
+.linkp{
+  padding-right: 20px;
+  padding-left: 20px;
+}
+.linka{
+  color:#87bf6eff;
+}
+#sidebar .sidebar-header a:hover {
+  color: white;
+}
+
+#sidebar ul p {
+  color: #fff;
+  padding: 10px;
+}
+
+#sidebar ul li a {
+  padding-left: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 30px;
+  font-size: x-large;
+  display: block;
+  color: white;
+}
+#sidebar ul li a:hover {
+  font-size: x-large;
+  color: #87bf6eff;
+  background: #f9fcf5ff;
+}
+
+#sidebar ul li.active > a, a[aria-expanded="true"] {
+  font-size: x-large;
+  color: #fff;
+  background: #87bf6eff;
+}
+ul ul a {
+  font-size: 0.9em !important;
+  padding-left: 40px !important;
+  background: #87bf6eff;
+}
+
+#sidebar.active {
+  margin-left: -250px;
+}
+
+#sidebarCollapse {
+  margin-top: 10px;
+  margin-left:10px;
+  width: 40px;
+  height: 40px;
+  background: #f9fcf5ff;
+  border: transparent;
+}
+
+#sidebarCollapse span {
+  width: 80%;
+  height: 2px;
+  margin: 0 auto;
+  display: block;
+  background: #555;
+  transition: all 0.8s cubic-bezier(0.810, -0.330, 0.345, 1.375);
+}
+>>>>>>> Stashed changes
 
 }
 .content{
@@ -70,6 +185,7 @@ body {
     overflow-y: auto;
   }
 
+<<<<<<< Updated upstream
 .pbid {
     background: #cedc98;
     border: 1px solid #DDDDDD;
@@ -77,3 +193,58 @@ body {
     font-weight: bold;
  }
  
+=======
+  .gifAnimation{
+    text-align: center;
+  }
+  
+  #leftIcon{
+    padding-right:40px;
+    text-align:right;
+  }
+
+  #rightIcon{
+    padding-left:40px;
+    text-align:left
+  }
+
+  .navbutton{
+    height:125px;
+    width: 125px;
+    filter: drop-shadow(10px 10px 4px lightgray);
+    border-radius:25px;
+    border: 2px solid #87bf6eff;
+    position:relative;
+    margin: 0 auto;
+  }
+
+  .navbutton:hover{
+    opacity:0.7;
+    cursor:pointer;
+  }
+
+  #navIcons{
+    color: #87bf6eff;
+
+  }
+
+  #feedback{
+    height: 140px;
+  }
+        
+  #bottom_next{
+    background-color: #87bf6eff;
+    color: white;
+    border: transparent
+  }
+
+
+  .home_buttons{
+    width:30%;
+    background-color: #87bf6eff;
+    fill: white;
+    color: white;
+    border: transparent;
+    font-size: 30px;
+  }
+>>>>>>> Stashed changes
