@@ -156,6 +156,7 @@ function getContentFromClipboard() {
 }
 
 
+
 function putContentToClipboard(text) {
     navigator.clipboard.writeText(text).then(() => {
         console.log("into clipboard now")
@@ -255,5 +256,6 @@ $(document).ready(function () {
             term.write(e.key);
             container.cursorPos++;
         }
+    });
 
 });
