@@ -9,48 +9,6 @@
     let lesson_info = {{ lesson_info| tojson}}
 </script>
 
-<div class = "row">
-    <div class = "col-md-7">
-        <div class = "content">
-            <div class = "title">
-                title here!
-            </div>
-            <div class = "prompt">
-                here is the prompt, which will tell people what to do.
-            </div>
-
-            <div class="instruction">
-                and here's the instruction!
-            </div>
-        </div>
-
-        <button type="button" id ="modal-button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-          </button>
-          
-          <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Success!</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  ...
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        
-    </div>
-    <div class = "col-md-5">
-        <div id="terminal"></div>
-    </div>
-</div>
 <div class = "nav">
     <a class ="navbuttons" id="prev">
         &#60; prev
@@ -62,27 +20,32 @@
         next &#62;
     </a>
 </div>
-<div class = "row">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
-        <div class="progress_1">
-            <div class="percent_1"></div>
-        </div>
-        <div class="steps">
-            <div class="step" id="1"></div>
-            <div class="step" id="2"></div>
-            <div class="step" id="3"></div>
-            <div class="step" id="4"></div>
-            <div class="step" id="5"></div>
-            <div class="step" id="6"></div>
-        </div>
-        <div class="progress_2">
-            <div class="percent_2"></div>
-        </div>
-        <!--div id="progress-bar"></div-->
-    </div>
-    <div class="col-md-2"></div>
-</div>
 
+<div>
+        <div class = "content">
+            <div class = "title">
+                title here!
+            </div>
+            <div class = "prompt">
+                here is the prompt, which will tell people what to do.
+            </div>
+
+            <div class="instruction">
+                and here's the instruction!
+            </div>
+        
+        <br>
+        <div id="terminal"></div>
+
+        <br>
+        <div id = "feedback"> 
+
+        </div>
+
+        <button type = "button" class="btn" id="bottom_next"> next > </button>
+
+    </div>
+
+    </div>
 
 {% endblock %}

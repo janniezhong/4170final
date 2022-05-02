@@ -270,24 +270,32 @@ quiz_response = defaultdict(list)
 # key needs to be int to be jsonified
 quiz_score = {int(quiz_id) : 0 for quiz_id in quiz_dict}
 
+def navbar_info():
+    global lessons
+    global quiz_dict
+    navbar_info = {}
+    navbar_info["num_lessons"] = len(lessons.keys())
+    navbar_info["num_quizzes"] = len(quiz_dict.keys())
+    return navbar_info
+
 
 # ROUTES
 
 @app.route('/')
 def home():
-    return render_template('index.html') 
+    return render_template('index.html', navbar_info=navbar_info()) 
 
 @app.route('/learn/<lesson_id>')
 def learn(lesson_id=None):
-    return render_template('learn.html', lesson_info=lessons[lesson_id])
+    return render_template('learn.html', lesson_info=lessons[lesson_id], navbar_info=navbar_info())
 
 @app.route('/quiz/<quiz_id>')
 def quiz(quiz_id=None):
-    return render_template('quiz.html', quiz_info=quiz_dict[quiz_id])
+    return render_template('quiz.html', quiz_info=quiz_dict[quiz_id], navbar_info=navbar_info())
 
 @app.route('/quiz/result')
 def result():
-    return render_template('result.html', score=sum(quiz_score.values()))
+    return render_template('result.html', score=sum(quiz_score.values()), navbar_info=navbar_info())
 
 # ajax
 @app.route('/check_answer', methods=['GET', 'POST'])

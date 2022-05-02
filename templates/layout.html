@@ -36,28 +36,77 @@
 
   <script type="text/javascript" src="{{ url_for('static', filename = 'layout.js') }}"></script>
 
+  <script>
+    let navbar_info = {{ navbar_info| tojson}}
+  </script>
+
   <title>grep</title>
 </head>
 
 <body>
 
-  <!-- <nav class="navbar navbar-expand-lg navbar-light navbar-custom py-4">
-    <div class="container">
-      <a class="navbar-brand" href="/">Find Webtoons!</a>
-      <a class="nav-link" href="/add">Add A Webtoon</a>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </div>
-  </nav> -->
+  <div class="wrapper">
 
-  <div style="position: relative;">
+    <!-- Sidebar -->
+    <nav id="sidebar">
+      <div class="sidebar-header">
+        <a href="/">
+
+          <!-- <span class="glyphicon glyphicon-search"></span> -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+          </svg>
+          <!-- <svg class="bi bi-search" width="40" height="32"><use xlink:href="#bootstrap"></use></svg> -->
+          <span>grep</span>
+        </a>
+
+      </div>
+
+      <ul class="list-unstyled components">
+          <li>
+              <a href="#learnSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">learn</a>
+              <ul class="collapse list-unstyled" id="learnSubmenu">
+                  <li>
+                      <a href="#">Home 1</a>
+                  </li>
+                  <li>
+                      <a href="#">Home 2</a>
+                  </li>
+                  <li>
+                      <a href="#">Home 3</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+              <a href="#quizSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">quiz</a>
+              <ul class="collapse list-unstyled" id="quizSubmenu">
+                  <li>
+                      <a href="#">Page 1</a>
+                  </li>
+                  <li>
+                      <a href="#">Page 2</a>
+                  </li>
+                  <li>
+                      <a href="#">Page 3</a>
+                  </li>
+              </ul>
+          </li>
+      </ul>
+  </nav>
+  <!-- <div style="position: relative;">  -->
+  <button type="button" id="sidebarCollapse" class="navbar-btn">
+      <span></span>
+      <span></span>
+      <span></span>
+  </button>
+
+
     <div class="container">
       {% block content %}
       {% endblock %}
     </div>
+
   </div>
 </body>
 

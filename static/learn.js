@@ -47,10 +47,14 @@ function displayCurrLesson(){
     $(".instruction").text(currLesson["instruction"])
 
     $("#prev").attr("href", "/learn/"+currLesson["previous_lesson_id"])
-
+    if (currLesson["lesson_id"] == "final"){
+        $("#next").attr("href", "/quiz/1")
+    } else {
+        $("#next").attr("href", "/learn/"+currLesson["next_lesson_id"])
+    }
 }
 
-function checkAnswer(){ // if the lesson is the last one, go to the quiz instead
+function checkAnswer(){
 
     data = {
         "id": currLesson["lesson_id"],
@@ -84,17 +88,8 @@ function checkAnswer(){ // if the lesson is the last one, go to the quiz instead
 }
 function finishLesson(){
 
-    // pop up modal
-    $("#modal-button").trigger("click")
-    $(".modal-body").empty()
-    $(".modal-body").text(currLesson["feedback"])
-
-    // allow next button
-    if (currLesson["lesson_id"] == "final"){
-        $("#next").attr("href", "/quiz/1")
-    } else {
-        $("#next").attr("href", "/learn/"+currLesson["next_lesson_id"])
-    }
+    $("#feedback").empty()
+    $("#feedback").append(currLesson["feedback"])
 
     // disallow typing in terminal
     // term.onKey(e => {})
@@ -135,8 +130,8 @@ function setProgBar(id) {
 
 
 $(document).ready(function(){
-    term = new Terminal({cursorBlink: "block", cols: 50, rows: 22, theme: {
-        background: '#8d8b8bff'
+    term = new Terminal({cursorBlink: "block", cols: 75, rows: 13, fontSize: 13,theme: {
+        background: '#8d8b8bff',
       }});
     term.open(document.getElementById('terminal'));
     term.write("> ")
@@ -173,21 +168,5 @@ $(document).ready(function(){
         }
 
     })
-
-    //create progress bar
-    Array.prototype.forEach.call(els, (e) => {
-        steps.push(e);
-        chapter_int = parseInt(currLesson["chapter_id"]);
-        console.log(chapter_int);
-        progress(chapter_int);
-    });
-
-    /*
-    var pb = new ldBar(document.getElementById('progress-bar'),{
-        "max": 5,
-        "min": 0,
-        "type": "stroke",
-    });
-    */
 
 }) 
