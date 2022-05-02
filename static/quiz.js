@@ -160,6 +160,8 @@ $(document).ready(function () {
   container.currLine = "";
 
   $("#prev").attr("href", getPrevPage(qidNum));
+  $("#next").attr("href", getNextPage(qidNum));
+
 
   term.onKey((e) => {
     let code = e.key.charCodeAt();

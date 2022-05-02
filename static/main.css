@@ -61,7 +61,7 @@ a:hover {
 #sidebar ul li a:hover {
   font-size: x-large;
   color: #87bf6eff;
-  background: #fcf3e6ff;
+  background: #f9fcf5ff;
 }
 
 #sidebar ul li.active > a, a[aria-expanded="true"] {
