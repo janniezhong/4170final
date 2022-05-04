@@ -191,81 +191,45 @@ lessons = {
 
 }
 
-# quiz_dict = {
-#     '1': {
-#         'quiz_id': '1',
-#         'title': 'Searching Through Recipes',
-#         'instruction': 'Various other readers are looking at a recipe book, and would like your assistance in searching through them as well. Use your new commands to help these people find what they need! If you need a hint, type and enter h.',
-#         'question': 'Person 1: My favorite condiments are ketchup and mustard. I\'d like to find the names of recipes containing these ingredients in this recipe book.',
-#         'answer': 'grep \"ketchup | mustard\" recipe_book',
-#         'img': '/static/images/image1.png'
-#     },
-#     '2': {
-#         'quiz_id': '2',
-#         'title': 'Searching Through Recipes',
-#         'instruction': 'Various other readers are looking at some other books, and would like your assistance in searching through it as well. Use your new commands to help these people find what they need! If you need a hint, type and enter h.',
-#         'question': 'Person 2: I love salty food, especially things made with soy sauce. I\id like to find the names of recipes containing the words \"salt\"" or \"soy sauce\"" from this recipe book.',
-#         'answer': 'grep \"salt | soy sauce\" recipe_book',
-#         'img': '/static/images/image2.png'
-#     },
-#     '3': {
-#         'quiz_id': '3',
-#         'title': 'Searching Through Recipes',
-#         'instruction': 'Various other readers are looking at some other books, and would like your assistance in searching through it as well. Use your new commands to help these people find what they need! If you need a hint, type and enter h.',
-#         'question': 'Person 3: I\'m interested in Recipe3 in this book. Unfortunately, I don\'t have a Dutch oven: can you search Recipe3 for the phrase \"dutch oven\"" (case insensitive), so I know whether it\'s essential or not?',
-#         'answer': 'grep -i \"dutch oven\" Recipe3',
-#         'img': '/static/images/image3.png'
-#     },
-#     '4': {
-#         'quiz_id': '4',
-#         'title': 'Searching Through Recipes',
-#         'instruction': 'Various other readers are looking at some other books, and would like your assistance in searching through it as well. Use your new commands to help these people find what they need! If you need a hint, type and enter h.',
-#         'question': 'Person 4: I love galettes, both savory and sweet. I\'d like to find the names of all recipes that are making a \"galette\" (case insensitive) in this book.',
-#         'answer': 'grep -i \"galette\" recipe_book',
-#         'img': '/static/images/image4.png'
-#     }
-# }
-
 quiz_dict = {
     '1': {
         'quiz_id': '1',
-        'title': 'Searching Through Recipes',
-        'instruction': 'Various other readers are looking at a recipe book, and would like your assistance in searching through them as well. Use your new commands to help these people find what they need! If you need a hint, type and enter h.',
-        'question': 'Person 1: My favorite condiments are ketchup and mustard. I\'d like to find the names of recipes containing these ingredients in this recipe book.',
-        'valid_flags': 'rnHclL',
-        'valid_pattern': 'pattern',
-        'valid_file': 'file',
-
+        'title': 'Quiz 1',
+        'instruction': 'If you need a hint, type and enter h.',
+        'question': 'You are trying to find all recipes that use an onion. How would you find them?',
+        'valid_flags': '',
+        'valid_pattern': ['onion'],
+        'valid_file': '*',
         'img': '/static/images/image1.png'
     },
     '2': {
         'quiz_id': '2',
-        'title': 'Searching Through Recipes',
-        'instruction': 'Various other readers are looking at some other books, and would like your assistance in searching through it as well. Use your new commands to help these people find what they need! If you need a hint, type and enter h.',
-        'question': 'Person 2: I love salty food, especially things made with soy sauce. I\'d like to find the names of recipes containing the words \"salt\" or \"soy sauce\" from this recipe book.',
-        'valid_flags': 'rnHclL',
-        'valid_pattern': 'pattern',
-        'valid_file': 'file',
+        'title': 'Quiz 2',
+        'instruction': 'If you need a hint, type and enter h.',
+        'question': 'Now, you want all recipes that use both salt and mustard. How would you find them?',
+        'valid_flags': 'E',
+        'valid_pattern': ['mustard', 'salt'],
+        'valid_file': '*',
         'img': '/static/images/image2.png'
     },
     '3': {
         'quiz_id': '3',
-        'title': 'Searching Through Recipes',
-        'instruction': 'Various other readers are looking at some other books, and would like your assistance in searching through it as well. Use your new commands to help these people find what they need! If you need a hint, type and enter h.',
-        'question': 'Person 3: I\'m interested in Recipe3 in this book. Unfortunately, I don\'t have a Dutch oven: can you search Recipe3 for the phrase \"dutch oven\" (case insensitive), so I know whether it\'s essential or not?',
-        'valid_flags': 'rnHclL',
-        'valid_pattern': 'pattern',
-        'valid_file': 'file',
+        'title': 'Quiz 3',
+        'instruction': 'If you need a hint, type and enter h.',
+        'question': 'You are trying to check if recipe4 uses a carrot, but the letter cases are messed up. How would you check if recipe4 uses a carrot?',
+        'valid_flags': 'i',
+        'valid_pattern': ['carrot'],
+        'valid_file': 'recipe4',
         'img': '/static/images/image3.png'
     },
     '4': {
         'quiz_id': '4',
         'title': 'Searching Through Recipes',
-        'instruction': 'Various other readers are looking at some other books, and would like your assistance in searching through it as well. Use your new commands to help these people find what they need! If you need a hint, type and enter h.',
-        'question': 'Person 4: I love galettes, both savory and sweet. I\'d like to find the names of all recipes that are making galettes in this book.',
-        'valid_flags': 'rnHclL',
-        'valid_pattern': 'pattern',
-        'valid_file': 'file',
+        'instruction': 'If you need a hint, type and enter h.',
+        'question': 'The recipe book now has two sections: savory recipes and sweet recipes. However, you don\'t care taste and want to find all recipes that use garlic. How would you find them?',
+        'valid_flags': 'r',
+        'valid_pattern': ['garlic'],
+        'valid_file': '/recipe_book',
         'img': '/static/images/image4.png'
     }
 }
@@ -357,11 +321,12 @@ def parseRequest(id, req):
             if flag not in quiz_dict[str(id)]['valid_flags']:
                 return 'Please use a correct flag for grep'
     
-    if req[i] != quiz_dict[str(id)]['valid_pattern']:
+    l1 = sorted(req[i].split('|'))
+    if l1 != quiz_dict[str(id)]['valid_pattern']:
         return 'Please use a correct pattern'
     
     if req[i+1] != quiz_dict[str(id)]['valid_file']:
-        return 'Please search a correct file'
+        return 'Please search correct file(s)'
     
     return 'Correct!'
         
