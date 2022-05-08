@@ -152,9 +152,10 @@ function putContentToClipboard(text) {
     });
 }
 
+
 $(document).ready(function () {
     term = new Terminal({
-        cursorBlink: "block", cols: 80, rows: 13, fontSize:12, theme: {
+        cursorBlink: "block", cols: 55, rows: 18, fontSize:12, theme: {
             background: '#434343ff'
         }
     });
