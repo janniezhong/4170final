@@ -21,11 +21,9 @@ function checkAnswer(currLine, qid) {
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(data),
         success: function (result) {
-            let res = result[qid];
-
-            if (res == 1) {
+            if (result == 1) {
                 $("#next").attr("href", getNextPage(qid));
-                term.write("\r\n Nice! Click next to go to the next page!\r\n");
+                term.write("\r\n Nice! Click next to go to the next page!\r\n > ");
             } else {
                 term.write("\r\n That wasn't quite right :/ Try again? \r\n > ");
             }
