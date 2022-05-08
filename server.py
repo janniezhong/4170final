@@ -3,6 +3,9 @@ from flask import Flask
 from flask import render_template
 from flask import Response, request, jsonify
 from collections import defaultdict
+
+from checker import check_quiz_answers
+
 app = Flask(__name__)
 
 lessons = {
@@ -199,8 +202,9 @@ quiz_dict = {
         'question': 'You are trying to find all recipes that use an onion. How would you find them?',
         'valid_flags': '',
         'valid_pattern': ['onion'],
-        'valid_file': '*',
-        'img': '/static/images/image1.png'
+        'valid_file': 'recipe_book/*',
+        'img': '/static/images/image1.png',
+        'answer': 'grep -R onion recipe_book'
     },
     '2': {
         'quiz_id': '2',
@@ -210,7 +214,8 @@ quiz_dict = {
         'valid_flags': 'E',
         'valid_pattern': ['mustard', 'salt'],
         'valid_file': '*',
-        'img': '/static/images/image2.png'
+        'img': '/static/images/image2.png',
+        'answer': 'grep -RE \"mustard|salt\" recipe_book'
     },
     '3': {
         'quiz_id': '3',
@@ -220,7 +225,8 @@ quiz_dict = {
         'valid_flags': 'i',
         'valid_pattern': ['carrot'],
         'valid_file': 'recipe4',
-        'img': '/static/images/image3.png'
+        'img': '/static/images/image3.png',
+        'answer': 'grep -i carrot recipe_book/recipe4'
     },
     '4': {
         'quiz_id': '4',
@@ -230,7 +236,8 @@ quiz_dict = {
         'valid_flags': 'r',
         'valid_pattern': ['garlic'],
         'valid_file': '/recipe_book',
-        'img': '/static/images/image4.png'
+        'img': '/static/images/image4.png',
+        'answer': 'grep -R garlic recipe_book'
     }
 }
 
@@ -307,35 +314,37 @@ def save_response():
 
     res = parse_request(id, response)
 
-    quiz_score[id] = 1 if res == 'Correct!' == response else 0
+    quiz_score[id] = 1 if res else 0
 
-    return jsonify(res)
+    return jsonify(quiz_score[id])
 
 # methods
 
 
-def parse_request(id, req):
-    req = req.split()
+def parse_request(qid, req):
+    # req = req.split()
 
-    if req[0] != 'grep':
-        return 'Please use grep as your first command of your answer'
+    # if req[0] != 'grep':
+    #     return 'Please use grep as your first command of your answer'
 
-    for i in range(1, len(req)):
-        if req[i][0] != '-':
-            break
+    # for i in range(1, len(req)):
+    #     if req[i][0] != '-':
+    #         break
 
-        for flag in req[i][1:]:
-            if flag not in quiz_dict[str(id)]['valid_flags']:
-                return 'Please use a correct flag for grep'
+    #     for flag in req[i][1:]:
+    #         if flag not in quiz_dict[str(id)]['valid_flags']:
+    #             return 'Please use a correct flag for grep'
 
-    l1 = sorted(req[i].split('|'))
-    if l1 != quiz_dict[str(id)]['valid_pattern']:
-        return 'Please use a correct pattern'
+    # l1 = sorted(req[i].split('|'))
+    # if l1 != quiz_dict[str(id)]['valid_pattern']:
+    #     return 'Please use a correct pattern'
 
-    if req[i+1] != quiz_dict[str(id)]['valid_file']:
-        return 'Please search correct file(s)'
+    # if req[i+1] != quiz_dict[str(id)]['valid_file']:
+    #     return 'Please search correct file(s)'
 
-    return 'Correct!'
+    ret =  check_quiz_answers(quiz_dict[str(qid)]["answer"], req, qid)
+    return ret[0]
+
 
 
 def log_response(lesson_id, lesson_response):
