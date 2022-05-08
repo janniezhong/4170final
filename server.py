@@ -42,7 +42,7 @@ lessons = {
         "instruction": "Try typing \"grep \"star | diamond\" TwinkleTwinkle.txt\".",
         "answer": "grep \"star | diamond\" TwinkleTwinkle.txt",
         "response": "Twinkle, twinkle, little star\r\nLike a diamond in the sky\r\nTwinkle, twinkle, little star\r\n",
-        "previous_lesson_id":"2",
+        "previous_lesson_id": "2",
         "next_lesson_id": "4",
     },
     "4": {
@@ -55,7 +55,7 @@ lessons = {
         "instruction": "",
         "answer": "grep \"wonder | ,\" TwinkleTwinkle.txt",
         "response": "Twinkle, twinkle, little star\r\nHow I wonder what you are\r\nTwinkle, twinkle, little star\r\n",
-        "previous_lesson_id":"3",
+        "previous_lesson_id": "3",
         "next_lesson_id": "5",
     },
     "5": {
@@ -68,7 +68,7 @@ lessons = {
         "instruction": "",
         "answer": "grep \"wool\" BlackSheep.txt",
         "response": "Have you any wool?",
-        "previous_lesson_id":"4",
+        "previous_lesson_id": "4",
         "next_lesson_id": "6",
     },
     "6": {
@@ -81,10 +81,10 @@ lessons = {
         "instruction": "",
         "answer": "grep \"one\" BlackSheep.txt",
         "response": "And one for the little boy that lives down the lane",
-        "previous_lesson_id":"5",
+        "previous_lesson_id": "5",
         "next_lesson_id": "7",
     },
-     "7": {
+    "7": {
         "chapter": "The -i flag",
         "chapter_id": "2",
         "lesson_id": "7",
@@ -94,7 +94,7 @@ lessons = {
         "instruction": "Try typing \"grep -i \"one\" BlackSheep.txt\".",
         "answer": "grep -i \"one\" BlackSheep.txt",
         "response": "One for the master,\r\nOne for the dame,\r\none for the little boy that lives down the lane.",
-        "previous_lesson_id":"6",
+        "previous_lesson_id": "6",
         "next_lesson_id": "8",
     },
     "8": {
@@ -107,7 +107,7 @@ lessons = {
         "instruction": "",
         "answer": "grep -i \"oNe\" BlackSheep.txt",
         "response": "One for the master,\r\nOne for the dame,\r\none for the little boy that lives down the lane.",
-        "previous_lesson_id":"7",
+        "previous_lesson_id": "7",
         "next_lesson_id": "9",
     },
     "9": {
@@ -120,7 +120,7 @@ lessons = {
         "instruction": "Type \"grep -i \"little\" *\"",
         "answer": "grep -i \"little\" *",
         "response": "BlackSheep.txt:And one for the little boy\r\nTwinkle.txt:Twinkle, twinkle, little star,\r\nTwinkle.txt:Twinkle, twinkle, little star,\r\nTeapot.txt:I\'m a little teapot",
-        "previous_lesson_id":"8",
+        "previous_lesson_id": "8",
         "next_lesson_id": "10",
     },
     "10": {
@@ -133,7 +133,7 @@ lessons = {
         "instruction": "",
         "answer": "grep -i \"shark\" *",
         "response": "BabyShark.txt:Baby shark, doo, doo, doo, doo, doo, doo.\r\nBabyShark.txt:Baby shark, doo, doo, doo, doo, doo, doo.\r\nBabyShark.txt:Baby shark, doo, doo, doo, doo, doo, doo.\r\nBabyShark.txt:Baby shark!\r\nBabyShark.txt:Mommy shark, doo, doo, doo, doo, doo, doo.\r\nBabyShark.txt:Mommy shark, doo, doo, doo, doo, doo, doo.\r\nBabyShark.txt:Mommy shark, doo, doo, doo, doo, doo, doo.\r\nBabyShark.txt:Mommy shark!\r\nBabyShark.txt:Daddy shark, doo, doo, doo, doo, doo, doo.\r\nBabyShark.txt:Daddy shark, doo, doo, doo, doo, doo, doo.\r\nBabyShark.txt:Daddy shark, doo, doo, doo, doo, doo, doo.\r\nBabyShark.txt:Daddy shark!\r\nBabyShark.txt:Grandma shark, doo, doo, doo, doo, doo, doo.\r\nBabyShark.txt:Grandma shark, doo, doo, doo, doo, doo, doo.\r\nBabyShark.txt:Grandma shark, doo, doo, doo, doo, doo, doo.\r\nBabyShark.txt:Grandma shark!\r\nBabyShark.txt:Grandpa shark, doo, doo, doo, doo, doo, doo.\r\nBabyShark.txt:Grandpa shark, doo, doo, doo, doo, doo, doo.\r\nBabyShark.txt:Grandpa shark, doo, doo, doo, doo, doo, doo.\r\nBabyShark.txt:Grandpa shark!\r\n",
-        "previous_lesson_id":"9",
+        "previous_lesson_id": "9",
         "next_lesson_id": "11",
     },
     "11": {
@@ -146,7 +146,7 @@ lessons = {
         "instruction": "Type \"grep -l \"shark\" *\".",
         "answer": "grep -l \"shark\" *",
         "response": "BabyShark.txt",
-        "previous_lesson_id":"10",
+        "previous_lesson_id": "10",
         "next_lesson_id": "12",
     },
     "12": {
@@ -159,7 +159,7 @@ lessons = {
         "instruction": "Type \"grep \"horses\" *\".",
         "answer": "grep \"horses\" *",
         "response": "",
-        "previous_lesson_id":"11",
+        "previous_lesson_id": "11",
         "next_lesson_id": "13",
     },
     "13": {
@@ -172,7 +172,7 @@ lessons = {
         "instruction": "Type \"grep -r \"horses\" *\".",
         "answer": "grep -r \"horses\" *",
         "response": "favorite\HumptyDumpty.txt: All the king\'s horses",
-        "previous_lesson_id":"12",
+        "previous_lesson_id": "12",
         "next_lesson_id": "final",
     },
     "final": {
@@ -185,7 +185,7 @@ lessons = {
         "instruction": "Type \"grep -lir \"and\" *\".",
         "answer": "grep -lir \"and\" *",
         "response": "Teapot.txt\r\nfavorite\HumptyDumpty.txt",
-        "previous_lesson_id":"13",
+        "previous_lesson_id": "13",
         "next_lesson_id": "",
     },
 
@@ -241,7 +241,8 @@ lesson_reponseId = 1
 quiz_response = defaultdict(list)
 
 # key needs to be int to be jsonified
-quiz_score = {int(quiz_id) : 0 for quiz_id in quiz_dict}
+quiz_score = {int(quiz_id): 0 for quiz_id in quiz_dict}
+
 
 def navbar_info():
     global lessons
@@ -256,34 +257,39 @@ def navbar_info():
 
 @app.route('/')
 def home():
-    return render_template('index.html', navbar_info=navbar_info()) 
+    return render_template('index.html', navbar_info=navbar_info())
+
 
 @app.route('/learn/<lesson_id>')
 def learn(lesson_id=None):
     return render_template('learn.html', lesson_info=lessons[lesson_id], navbar_info=navbar_info())
 
+
 @app.route('/quiz/<quiz_id>')
 def quiz(quiz_id=None):
     return render_template('quiz.html', quiz_info=quiz_dict[quiz_id], navbar_info=navbar_info())
+
 
 @app.route('/result')
 def result():
     return render_template('result.html', score=sum(quiz_score.values()), navbar_info=navbar_info())
 
 # ajax
+
+
 @app.route('/check_answer', methods=['GET', 'POST'])
 def check_answer():
     global lessons
 
-    json_data=request.get_json()
+    json_data = request.get_json()
 
     lesson_id = json_data["id"]
     lesson_response = json_data["response"]
-    logResponse(lesson_id, lesson_response)
+    log_response(lesson_id, lesson_response)
     print(lesson_id, lesson_response)
-    lesson_return = {"correct":"true",
-                     "error":""}
-    if lesson_response==lessons[lesson_id]["answer"]:
+    lesson_return = {"correct": "true",
+                     "error": ""}
+    if lesson_response == lessons[lesson_id]["answer"]:
         return jsonify(lesson_return)
     else:
         lesson_return["correct"] = "false"
@@ -293,26 +299,27 @@ def check_answer():
 
 @app.route('/save_response', methods=['POST'])
 def save_response():
-    json_data=request.get_json()
+    json_data = request.get_json()
 
     id = json_data["id"]
     response = json_data["response"]
     quiz_response[id].append(response)
 
-    res = parseRequest(id, response)
+    res = parse_request(id, response)
 
     quiz_score[id] = 1 if res == 'Correct!' == response else 0
 
-    return res
+    return jsonify(res)
 
 # methods
 
-def parseRequest(id, req):
+
+def parse_request(id, req):
     req = req.split()
 
     if req[0] != 'grep':
         return 'Please use grep as your first command of your answer'
-    
+
     for i in range(1, len(req)):
         if req[i][0] != '-':
             break
@@ -320,18 +327,18 @@ def parseRequest(id, req):
         for flag in req[i][1:]:
             if flag not in quiz_dict[str(id)]['valid_flags']:
                 return 'Please use a correct flag for grep'
-    
+
     l1 = sorted(req[i].split('|'))
     if l1 != quiz_dict[str(id)]['valid_pattern']:
         return 'Please use a correct pattern'
-    
+
     if req[i+1] != quiz_dict[str(id)]['valid_file']:
         return 'Please search correct file(s)'
-    
-    return 'Correct!'
-        
 
-def logResponse(lesson_id, lesson_response):
+    return 'Correct!'
+
+
+def log_response(lesson_id, lesson_response):
 
     global lesson_reponseId
     global lesson_responses
@@ -340,14 +347,9 @@ def logResponse(lesson_id, lesson_response):
                       "response": lesson_response}
     id = str(lesson_reponseId)
     lesson_reponseId += 1
-    lesson_responses.update({id:response_entry})
-    print (lesson_responses)
-
+    lesson_responses.update({id: response_entry})
+    print(lesson_responses)
 
 
 if __name__ == '__main__':
-   app.run(debug = True)
-
-
-
-
+    app.run(debug=True)
