@@ -148,6 +148,28 @@ a[data-toggle="collapse"] {
   transform: rotate(0deg);
 }
 
+.command{
+  color: #87bf6e;
+  font-weight:bold;
+}
+
+.flags {
+  color:#6e9dbf;
+  font-weight:bold;
+}
+
+.search-string{
+  color:#e06666;
+  font-weight:bold;
+
+}
+
+.location{
+  color:#b46ebf;
+  font-weight:bold;
+
+}
+
 .content{
     margin-top: 10px;
     margin-left: 100px;

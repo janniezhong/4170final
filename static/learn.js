@@ -62,15 +62,15 @@ function displayCurrLesson() {
     // display title
     $(".title").empty()
     console.log(currLesson["topic"])
-    $(".title").text(currLesson["topic"])
+    $(".title").append(currLesson["topic"])
 
     // display prompt
     $(".prompt").empty()
-    $(".prompt").text(currLesson["prompt"])
+    $(".prompt").append(currLesson["prompt"])
 
     // display instruction
     $(".instruction").empty()
-    $(".instruction").text(currLesson["instruction"])
+    $(".instruction").append(currLesson["instruction"])
 
 
     $("#prev").attr("href", "/learn/" + currLesson["previous_lesson_id"])
