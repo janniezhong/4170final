@@ -322,26 +322,6 @@ def save_response():
 
 
 def parse_request(qid, req):
-    # req = req.split()
-
-    # if req[0] != 'grep':
-    #     return 'Please use grep as your first command of your answer'
-
-    # for i in range(1, len(req)):
-    #     if req[i][0] != '-':
-    #         break
-
-    #     for flag in req[i][1:]:
-    #         if flag not in quiz_dict[str(id)]['valid_flags']:
-    #             return 'Please use a correct flag for grep'
-
-    # l1 = sorted(req[i].split('|'))
-    # if l1 != quiz_dict[str(id)]['valid_pattern']:
-    #     return 'Please use a correct pattern'
-
-    # if req[i+1] != quiz_dict[str(id)]['valid_file']:
-    #     return 'Please search correct file(s)'
-
     ret =  check_quiz_answers(quiz_dict[str(qid)]["answer"], req, qid)
     return ret[0]
 

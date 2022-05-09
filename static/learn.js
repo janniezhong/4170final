@@ -17,7 +17,6 @@ let currLesson = {
 let lessonFinished = false
 
 let keyboardContent = ""
-let cursorPos = 0
 
 var term;
 
@@ -93,13 +92,8 @@ function checkAnswer() { // if the lesson is the last one, go to the quiz instea
     });
 }
 function finishLesson() {
-
     $("#feedback").empty()
     $("#feedback").append(currLesson["feedback"])
-
-
-    // disallow typing in terminal
-    // term.onKey(e => {})
 }
 
 function updateTerminal(s) {
@@ -186,7 +180,6 @@ $(document).ready(function () {
         if (arg.ctrlKey && arg.code === "KeyV" && arg.type === "keydown") {
             term.write(keyboardContent);
             currLine = keyboardContent;
-            cursorPos = currLine.length;
             return false;
         }
 
@@ -204,28 +197,7 @@ $(document).ready(function () {
                 currLine = ""
             }
         } else if (code < 32) { // Control
-            if (code != 27) {
-                return;
-            }
-
-            switch (e.key) {
-                case '\x1b[D':
-                    if (cursorPos > 0) {
-                        cursorPos--;
-                        term.write(e.key);
-                    }
-                    break;
-
-                case '\x1b[C':
-                    if (cursorPos < currLine.length) {
-                        cursorPos++;
-                        term.write(e.key)
-                    }
-                    break
-
-                default:
-                    break;
-            }
+            return;
         } else if (code == 127 || code == 8) {
             if (currLine) {
                 currLine = currLine.slice(0, currLine.length - 1);
@@ -234,7 +206,6 @@ $(document).ready(function () {
         } else {
             currLine += e.key;
             term.write(e.key);
-            cursorPos++;
         }
 
     })

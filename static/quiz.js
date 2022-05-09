@@ -2,8 +2,7 @@ var term;
 
 var container = {
     currLine: "",
-    keyboardContent: "",
-    cursorPos: 0
+    keyboardContent: ""
 };
 
 function checkAnswer(currLine, qid) {
@@ -46,17 +45,12 @@ function getPrevPage(qid) {
 }
 
 function getNextPage(qid) {
-
     // if the lesson is the last one, go to the quiz instead
     if (qid == 4) {
         return "/result";
     } else {
         return "/quiz/" + (qid + 1).toString();
     }
-
-  // if the lesson is the last one, go to the quiz instead
-
-
 }
 
 function updateTerminal(s) {
@@ -87,10 +81,6 @@ function renderTreeOne() {
     term.write("└── recipe4 \r\n");
 
     term.write("0 directories, 4 files");
-
-    // $( ".instruction" ).empty();
-
-    // $('<p>' + "recipe_book \r\n"+"├── recipe1 \r\n"+"├── recipe2 \r\n"+ "├── recipe3 \r\n"+"└── recipe4 \r\n"+ '</p>').appendTo('.instruction');
 }
 
 function renderTreeTwo() {
@@ -103,10 +93,6 @@ function renderTreeTwo() {
     term.write("    └── recipe4\r\n");
 
     term.write("2 directories, 4 files");
-
-    // $( ".instruction" ).empty();
-
-    // $('<p>' + "recipe_book \r\n"+"├── savory \r\n"+"│   ├── recipe1\r\n"+ "│   └── recipe2\r\n"+"└── sweet\r\n"+"    ├── recipe3\r\n"+"    └── recipe4\r\n"+ '</p>').appendTo('.instruction');
 }
 
 function renderTree(qid) {
@@ -153,8 +139,6 @@ function getContentFromClipboard() {
         });
 }
 
-
-
 function putContentToClipboard(text) {
     navigator.clipboard.writeText(text).then(() => {
         console.log("into clipboard now")
@@ -188,7 +172,7 @@ $(document).ready(function () {
     term.attachCustomKeyEventHandler((arg) => {
         getContentFromClipboard();
 
-        if (arg.ctrlKey && arg.code === "KeyC" && arg.type === "keydown") {
+        if ((arg.ctrlKey || arg.metaKey) && arg.code === "KeyC" && arg.type === "keydown") {
             const selection = term.getSelection();
             if (selection) {
                 putContentToClipboard(selection);
@@ -196,10 +180,9 @@ $(document).ready(function () {
             }
         }
 
-        if (arg.ctrlKey && arg.code === "KeyV" && arg.type === "keydown") {
+        if ((arg.ctrlKey || arg.metaKey) && arg.code === "KeyV" && arg.type === "keydown") {
             term.write(container.keyboardContent);
             container.currLine = container.keyboardContent;
-            container.cursorPos = container.currLine.length;
             return false;
         }
 
@@ -213,32 +196,10 @@ $(document).ready(function () {
             if (container.currLine) {
                 checkAnswer(container.currLine, qidNum);
                 container.currLine = "";
-                container.cursorPos = 0;
             }
         } else if (code < 32) {
             // Control
-            if (code != 27) {
-                return;
-            }
-
-            switch (e.key) {
-                case '\x1b[D':
-                    if (container.cursorPos > 0) {
-                        container.cursorPos--;
-                        term.write(e.key);
-                    }
-                    break;
-
-                case '\x1b[C':
-                    if (container.cursorPos < container.currLine.length) {
-                        container.cursorPos++;
-                        term.write(e.key)
-                    }
-                    break
-
-                default:
-                    break;
-            }
+            return
         } else if (code == 127 || code == 8) {
             if (container.currLine) {
                 container.currLine = container.currLine.slice(
@@ -250,7 +211,6 @@ $(document).ready(function () {
         } else {
             container.currLine += e.key;
             term.write(e.key);
-            container.cursorPos++;
         }
     });
 });
