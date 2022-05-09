@@ -200,10 +200,6 @@ quiz_dict = {
         'title': 'Quiz 1',
         'instruction': 'If you need a hint, type and enter h.',
         'question': 'You are trying to find all recipes that use an onion. How would you find them?',
-        'valid_flags': '',
-        'valid_pattern': ['onion'],
-        'valid_file': 'recipe_book/*',
-        'img': '/static/images/image1.png',
         'answer': 'grep -R onion recipe_book'
     },
     '2': {
@@ -211,21 +207,13 @@ quiz_dict = {
         'title': 'Quiz 2',
         'instruction': 'If you need a hint, type and enter h.',
         'question': 'Now, you want all recipes that use both salt and mustard. How would you find them?',
-        'valid_flags': 'E',
-        'valid_pattern': ['mustard', 'salt'],
-        'valid_file': '*',
-        'img': '/static/images/image2.png',
-        'answer': 'grep -RE \"mustard|salt\" recipe_book'
+        'answer': 'grep -RE "mustard|salt" recipe_book'
     },
     '3': {
         'quiz_id': '3',
         'title': 'Quiz 3',
         'instruction': 'If you need a hint, type and enter h.',
         'question': 'You are trying to check if recipe4 uses a carrot, but the letter cases are messed up. How would you check if recipe4 uses a carrot?',
-        'valid_flags': 'i',
-        'valid_pattern': ['carrot'],
-        'valid_file': 'recipe4',
-        'img': '/static/images/image3.png',
         'answer': 'grep -i carrot recipe_book/recipe4'
     },
     '4': {
@@ -233,10 +221,6 @@ quiz_dict = {
         'title': 'Searching Through Recipes',
         'instruction': 'If you need a hint, type and enter h.',
         'question': 'The recipe book now has two sections: savory recipes and sweet recipes. However, you don\'t care taste and want to find all recipes that use garlic. How would you find them?',
-        'valid_flags': 'r',
-        'valid_pattern': ['garlic'],
-        'valid_file': '/recipe_book',
-        'img': '/static/images/image4.png',
         'answer': 'grep -R garlic recipe_book'
     }
 }
@@ -308,44 +292,18 @@ def check_answer():
 def save_response():
     json_data = request.get_json()
 
-    id = json_data["id"]
+    qid = json_data["id"]
     response = json_data["response"]
-    quiz_response[id].append(response)
+    quiz_response[qid].append(response)
 
-    res = parse_request(id, response)
+    flgCorrect, errMsg = check_quiz_answers(quiz_dict[str(qid)]["answer"], response, qid)
 
-    quiz_score[id] = 1 if res else 0
+    quiz_score[qid] = 1 if flgCorrect else 0
 
-    return jsonify(quiz_score[id])
-
-# methods
-
-
-def parse_request(qid, req):
-    # req = req.split()
-
-    # if req[0] != 'grep':
-    #     return 'Please use grep as your first command of your answer'
-
-    # for i in range(1, len(req)):
-    #     if req[i][0] != '-':
-    #         break
-
-    #     for flag in req[i][1:]:
-    #         if flag not in quiz_dict[str(id)]['valid_flags']:
-    #             return 'Please use a correct flag for grep'
-
-    # l1 = sorted(req[i].split('|'))
-    # if l1 != quiz_dict[str(id)]['valid_pattern']:
-    #     return 'Please use a correct pattern'
-
-    # if req[i+1] != quiz_dict[str(id)]['valid_file']:
-    #     return 'Please search correct file(s)'
-
-    ret =  check_quiz_answers(quiz_dict[str(qid)]["answer"], req, qid)
-    return ret[0]
-
-
+    return jsonify({
+        "flgCorrect": flgCorrect,
+        "errMsg": errMsg.strip()
+    })
 
 def log_response(lesson_id, lesson_response):
 

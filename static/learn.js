@@ -17,9 +17,32 @@ let currLesson = {
 let lessonFinished = false
 
 let keyboardContent = ""
-let cursorPos = 0
 
 var term;
+
+// https://stackoverflow.com/a/13348618
+function isChrome() {
+    var isChromium = window.chrome;
+    var winNav = window.navigator;
+    var vendorName = winNav.vendor;
+    var isOpera = typeof window.opr !== "undefined";
+    var isIEedge = winNav.userAgent.indexOf("Edg") > -1;
+    var isIOSChrome = winNav.userAgent.match("CriOS");
+
+    if (isIOSChrome) {
+        return false
+    } else if (
+        isChromium !== null &&
+        typeof isChromium !== "undefined" &&
+        vendorName === "Google Inc." &&
+        isOpera === false &&
+        isIEedge === false
+    ) {
+       return true
+    } else {
+        return false
+    }
+}
 
 function updateCurrLesson(lesson_info) {
     currLesson["chapter"] = lesson_info["chapter"]
@@ -93,13 +116,8 @@ function checkAnswer() { // if the lesson is the last one, go to the quiz instea
     });
 }
 function finishLesson() {
-
     $("#feedback").empty()
     $("#feedback").append(currLesson["feedback"])
-
-
-    // disallow typing in terminal
-    // term.onKey(e => {})
 }
 
 function updateTerminal(s) {
@@ -137,6 +155,10 @@ function progress(stepNum) {
 
 
 function getContentFromClipboard() {
+    if (!isChrome()) {
+        return;
+    }
+
     navigator.clipboard
         .readText()
         .then((copiedText) => {
@@ -175,7 +197,12 @@ $(document).ready(function () {
     term.attachCustomKeyEventHandler((arg) => {
         getContentFromClipboard();
 
-        if (arg.ctrlKey && arg.code === "KeyC" && arg.type === "keydown") {
+        if ((arg.ctrlKey || arg.metaKey) && arg.code === "KeyC" && arg.type === "keydown") {
+            if (!isChrome()) {
+                alert("copy/paste from terminal is only supported on Google Chrome")
+                return true;
+            }
+
             const selection = term.getSelection();
             if (selection) {
                 putContentToClipboard(selection);
@@ -183,10 +210,14 @@ $(document).ready(function () {
             }
         }
 
-        if (arg.ctrlKey && arg.code === "KeyV" && arg.type === "keydown") {
+        if ((arg.ctrlKey || arg.metaKey) && arg.code === "KeyV" && arg.type === "keydown") {
+            if (!isChrome()) {
+                alert("copy/paste from terminal is only supported on Google Chrome")
+                return true;
+            }
+
             term.write(keyboardContent);
             currLine = keyboardContent;
-            cursorPos = currLine.length;
             return false;
         }
 
@@ -204,28 +235,7 @@ $(document).ready(function () {
                 currLine = ""
             }
         } else if (code < 32) { // Control
-            if (code != 27) {
-                return;
-            }
-
-            switch (e.key) {
-                case '\x1b[D':
-                    if (cursorPos > 0) {
-                        cursorPos--;
-                        term.write(e.key);
-                    }
-                    break;
-
-                case '\x1b[C':
-                    if (cursorPos < currLine.length) {
-                        cursorPos++;
-                        term.write(e.key)
-                    }
-                    break
-
-                default:
-                    break;
-            }
+            return;
         } else if (code == 127 || code == 8) {
             if (currLine) {
                 currLine = currLine.slice(0, currLine.length - 1);
@@ -234,7 +244,6 @@ $(document).ready(function () {
         } else {
             currLine += e.key;
             term.write(e.key);
-            cursorPos++;
         }
 
     })

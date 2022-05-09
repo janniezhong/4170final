@@ -2,8 +2,7 @@ var term;
 
 var container = {
     currLine: "",
-    keyboardContent: "",
-    cursorPos: 0
+    keyboardContent: ""
 };
 
 function checkAnswer(currLine, qid) {
@@ -12,8 +11,6 @@ function checkAnswer(currLine, qid) {
         response: currLine,
     };
 
-    console.log(currLine);
-
     $.ajax({
         type: "POST",
         url: "/save_response",
@@ -21,11 +18,14 @@ function checkAnswer(currLine, qid) {
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(data),
         success: function (result) {
-            if (result == 1) {
+            var flgCorrect = result["flgCorrect"];
+            var errMsg = result["errMsg"];
+
+            if (flgCorrect) {
                 $("#next").attr("href", getNextPage(qid));
                 term.write("\r\n Nice! Click next to go to the next page!\r\n > ");
             } else {
-                term.write("\r\n That wasn't quite right :/ Try again? \r\n > ");
+                term.write("\r\n That wasn't quite right :/ Try again? Some hints:\r\n \x1b[1;31m" + errMsg + " \x1b[0;97m\r\n > ");
             }
         },
         error: function (request, status, error) {
@@ -46,17 +46,36 @@ function getPrevPage(qid) {
 }
 
 function getNextPage(qid) {
-
     // if the lesson is the last one, go to the quiz instead
     if (qid == 4) {
         return "/result";
     } else {
         return "/quiz/" + (qid + 1).toString();
     }
+}
 
-  // if the lesson is the last one, go to the quiz instead
+// https://stackoverflow.com/a/13348618
+function isChrome() {
+    var isChromium = window.chrome;
+    var winNav = window.navigator;
+    var vendorName = winNav.vendor;
+    var isOpera = typeof window.opr !== "undefined";
+    var isIEedge = winNav.userAgent.indexOf("Edg") > -1;
+    var isIOSChrome = winNav.userAgent.match("CriOS");
 
-
+    if (isIOSChrome) {
+        return false
+    } else if (
+        isChromium !== null &&
+        typeof isChromium !== "undefined" &&
+        vendorName === "Google Inc." &&
+        isOpera === false &&
+        isIEedge === false
+    ) {
+       return true
+    } else {
+        return false
+    }
 }
 
 function updateTerminal(s) {
@@ -87,10 +106,6 @@ function renderTreeOne() {
     term.write("└── recipe4 \r\n");
 
     term.write("0 directories, 4 files");
-
-    // $( ".instruction" ).empty();
-
-    // $('<p>' + "recipe_book \r\n"+"├── recipe1 \r\n"+"├── recipe2 \r\n"+ "├── recipe3 \r\n"+"└── recipe4 \r\n"+ '</p>').appendTo('.instruction');
 }
 
 function renderTreeTwo() {
@@ -103,10 +118,6 @@ function renderTreeTwo() {
     term.write("    └── recipe4\r\n");
 
     term.write("2 directories, 4 files");
-
-    // $( ".instruction" ).empty();
-
-    // $('<p>' + "recipe_book \r\n"+"├── savory \r\n"+"│   ├── recipe1\r\n"+ "│   └── recipe2\r\n"+"└── sweet\r\n"+"    ├── recipe3\r\n"+"    └── recipe4\r\n"+ '</p>').appendTo('.instruction');
 }
 
 function renderTree(qid) {
@@ -146,14 +157,16 @@ function setProgBar(qid) {
 
 
 function getContentFromClipboard() {
+    if (!isChrome()) {
+        return
+    }
+
     navigator.clipboard
         .readText()
         .then((copiedText) => {
             container.keyboardContent = copiedText;
         });
 }
-
-
 
 function putContentToClipboard(text) {
     navigator.clipboard.writeText(text).then(() => {
@@ -167,10 +180,11 @@ $(document).ready(function () {
     addText();
 
     term = new Terminal({
-      cursorBlink: "block", cols: 80, rows: 13, fontSize:12, theme: {
-          background: '#434343ff'
-      }
+        cursorBlink: "block", cols: 80, rows: 13, fontSize: 12, theme: {
+            background: '#434343ff'
+        }
     });
+
     term.open(document.getElementById("terminal"));
     term.write("> ")
 
@@ -188,7 +202,12 @@ $(document).ready(function () {
     term.attachCustomKeyEventHandler((arg) => {
         getContentFromClipboard();
 
-        if (arg.ctrlKey && arg.code === "KeyC" && arg.type === "keydown") {
+        if ((arg.ctrlKey || arg.metaKey) && arg.code === "KeyC" && arg.type === "keydown") {
+            if (!isChrome()) {
+                alert("copy/paste from terminal is only supported on Google Chrome")
+                return true;
+            }
+
             const selection = term.getSelection();
             if (selection) {
                 putContentToClipboard(selection);
@@ -196,10 +215,14 @@ $(document).ready(function () {
             }
         }
 
-        if (arg.ctrlKey && arg.code === "KeyV" && arg.type === "keydown") {
+        if ((arg.ctrlKey || arg.metaKey) && arg.code === "KeyV" && arg.type === "keydown") {
+            if (!isChrome()) {
+                alert("copy/paste from terminal is only supported on Google Chrome")
+                return true;
+            }
+
             term.write(container.keyboardContent);
             container.currLine = container.keyboardContent;
-            container.cursorPos = container.currLine.length;
             return false;
         }
 
@@ -213,32 +236,10 @@ $(document).ready(function () {
             if (container.currLine) {
                 checkAnswer(container.currLine, qidNum);
                 container.currLine = "";
-                container.cursorPos = 0;
             }
         } else if (code < 32) {
             // Control
-            if (code != 27) {
-                return;
-            }
-
-            switch (e.key) {
-                case '\x1b[D':
-                    if (container.cursorPos > 0) {
-                        container.cursorPos--;
-                        term.write(e.key);
-                    }
-                    break;
-
-                case '\x1b[C':
-                    if (container.cursorPos < container.currLine.length) {
-                        container.cursorPos++;
-                        term.write(e.key)
-                    }
-                    break
-
-                default:
-                    break;
-            }
+            return
         } else if (code == 127 || code == 8) {
             if (container.currLine) {
                 container.currLine = container.currLine.slice(
@@ -250,7 +251,6 @@ $(document).ready(function () {
         } else {
             container.currLine += e.key;
             term.write(e.key);
-            container.cursorPos++;
         }
     });
 });
