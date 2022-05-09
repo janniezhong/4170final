@@ -207,7 +207,7 @@ quiz_dict = {
         'title': 'Quiz 2',
         'instruction': 'If you need a hint, type and enter h.',
         'question': 'Now, you want all recipes that use both salt and mustard. How would you find them?',
-        'answer': 'grep -RE \"mustard|salt\" recipe_book'
+        'answer': 'grep -RE "mustard|salt" recipe_book'
     },
     '3': {
         'quiz_id': '3',
