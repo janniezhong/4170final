@@ -11,8 +11,6 @@ function checkAnswer(currLine, qid) {
         response: currLine,
     };
 
-    console.log(currLine);
-
     $.ajax({
         type: "POST",
         url: "/save_response",
@@ -20,11 +18,14 @@ function checkAnswer(currLine, qid) {
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(data),
         success: function (result) {
-            if (result == 1) {
+            var flgCorrect = result["flgCorrect"];
+            var errMsg = result["errMsg"];
+
+            if (flgCorrect) {
                 $("#next").attr("href", getNextPage(qid));
                 term.write("\r\n Nice! Click next to go to the next page!\r\n > ");
             } else {
-                term.write("\r\n That wasn't quite right :/ Try again? \r\n > ");
+                term.write("\r\n That wasn't quite right :/ Try again? Some hints:\r\n \x1b[1;31m" + errMsg + " \x1b[0;97m\r\n > ");
             }
         },
         error: function (request, status, error) {
@@ -50,6 +51,30 @@ function getNextPage(qid) {
         return "/result";
     } else {
         return "/quiz/" + (qid + 1).toString();
+    }
+}
+
+// https://stackoverflow.com/a/13348618
+function isChrome() {
+    var isChromium = window.chrome;
+    var winNav = window.navigator;
+    var vendorName = winNav.vendor;
+    var isOpera = typeof window.opr !== "undefined";
+    var isIEedge = winNav.userAgent.indexOf("Edg") > -1;
+    var isIOSChrome = winNav.userAgent.match("CriOS");
+
+    if (isIOSChrome) {
+        return false
+    } else if (
+        isChromium !== null &&
+        typeof isChromium !== "undefined" &&
+        vendorName === "Google Inc." &&
+        isOpera === false &&
+        isIEedge === false
+    ) {
+       return true
+    } else {
+        return false
     }
 }
 
@@ -132,6 +157,10 @@ function setProgBar(qid) {
 
 
 function getContentFromClipboard() {
+    if (!isChrome()) {
+        return
+    }
+
     navigator.clipboard
         .readText()
         .then((copiedText) => {
@@ -151,10 +180,11 @@ $(document).ready(function () {
     addText();
 
     term = new Terminal({
-      cursorBlink: "block", cols: 80, rows: 13, fontSize:12, theme: {
-          background: '#434343ff'
-      }
+        cursorBlink: "block", cols: 80, rows: 13, fontSize: 12, theme: {
+            background: '#434343ff'
+        }
     });
+
     term.open(document.getElementById("terminal"));
     term.write("> ")
 
@@ -173,6 +203,11 @@ $(document).ready(function () {
         getContentFromClipboard();
 
         if ((arg.ctrlKey || arg.metaKey) && arg.code === "KeyC" && arg.type === "keydown") {
+            if (!isChrome()) {
+                alert("copy/paste from terminal is only supported on Google Chrome")
+                return true;
+            }
+
             const selection = term.getSelection();
             if (selection) {
                 putContentToClipboard(selection);
@@ -181,6 +216,11 @@ $(document).ready(function () {
         }
 
         if ((arg.ctrlKey || arg.metaKey) && arg.code === "KeyV" && arg.type === "keydown") {
+            if (!isChrome()) {
+                alert("copy/paste from terminal is only supported on Google Chrome")
+                return true;
+            }
+
             term.write(container.keyboardContent);
             container.currLine = container.keyboardContent;
             return false;

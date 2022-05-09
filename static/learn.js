@@ -20,6 +20,30 @@ let keyboardContent = ""
 
 var term;
 
+// https://stackoverflow.com/a/13348618
+function isChrome() {
+    var isChromium = window.chrome;
+    var winNav = window.navigator;
+    var vendorName = winNav.vendor;
+    var isOpera = typeof window.opr !== "undefined";
+    var isIEedge = winNav.userAgent.indexOf("Edg") > -1;
+    var isIOSChrome = winNav.userAgent.match("CriOS");
+
+    if (isIOSChrome) {
+        return false
+    } else if (
+        isChromium !== null &&
+        typeof isChromium !== "undefined" &&
+        vendorName === "Google Inc." &&
+        isOpera === false &&
+        isIEedge === false
+    ) {
+       return true
+    } else {
+        return false
+    }
+}
+
 function updateCurrLesson(lesson_info) {
     currLesson["chapter"] = lesson_info["chapter"]
     currLesson["chapter_id"] = lesson_info["chapter_id"]
@@ -131,6 +155,10 @@ function progress(stepNum) {
 
 
 function getContentFromClipboard() {
+    if (!isChrome()) {
+        return;
+    }
+
     navigator.clipboard
         .readText()
         .then((copiedText) => {
@@ -169,7 +197,12 @@ $(document).ready(function () {
     term.attachCustomKeyEventHandler((arg) => {
         getContentFromClipboard();
 
-        if (arg.ctrlKey && arg.code === "KeyC" && arg.type === "keydown") {
+        if ((arg.ctrlKey || arg.metaKey) && arg.code === "KeyC" && arg.type === "keydown") {
+            if (!isChrome()) {
+                alert("copy/paste from terminal is only supported on Google Chrome")
+                return true;
+            }
+
             const selection = term.getSelection();
             if (selection) {
                 putContentToClipboard(selection);
@@ -177,7 +210,12 @@ $(document).ready(function () {
             }
         }
 
-        if (arg.ctrlKey && arg.code === "KeyV" && arg.type === "keydown") {
+        if ((arg.ctrlKey || arg.metaKey) && arg.code === "KeyV" && arg.type === "keydown") {
+            if (!isChrome()) {
+                alert("copy/paste from terminal is only supported on Google Chrome")
+                return true;
+            }
+
             term.write(keyboardContent);
             currLine = keyboardContent;
             return false;

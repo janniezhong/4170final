@@ -1,5 +1,5 @@
 import subprocess
-
+import shlex
 
 # use subprocess to do the checking
 # returns (boolean, string) that respectively indicate
@@ -11,8 +11,10 @@ def check_quiz_answers(answer, user_input, qid):
 
     cwd = get_cwd(qid)
 
-    if not security_check(user_input):
-        return (False, "Please make sure grep is the first argument.")
+    sec = security_check(user_input)
+
+    if not sec[0]:
+        return sec
 
     try:
         ans_out = subprocess.run(
@@ -28,12 +30,17 @@ def check_quiz_answers(answer, user_input, qid):
     except subprocess.TimeoutExpired:
         return (False, "User answer execution timed out.")
 
+
     if user_out.returncode == 0:
         ret = compare_outputs(ans_out.stdout, user_out.stdout)
         if ret:
             return (ret, "Correct!")
+        else:
+            return (False, "Unexpected lines matched.")
+    elif user_out.returncode == 1:
+        return (False, "No lines matched.")
 
-    return (False, "Please try again")
+    return (False, "\r\n ".join(user_out.stderr.split('\n')))
 
 
 def get_cwd(qid):
@@ -44,19 +51,32 @@ def get_cwd(qid):
         return "quiz/quiz123/"
 
     if qid in quiz4:
-        return "quiz/quiz4"
+        return "quiz/quiz4/"
 
     return "quiz/quiz123/"
 
 
 def security_check(user_input):
-    # for now just check the user is running grep
-    tokens = user_input.split(" ")
+    filters = ['&&', '|', '||', 'sudo']
+    invalid_paths = ['.', '..']
 
-    if tokens[0] != "grep":
-        return False
+    tokens = shlex.split(user_input)
 
-    return True
+    if tokens[0] != 'grep':
+        return False, "Please make sure grep is the first argument."
+
+    if set(filters).intersection(set(tokens)):
+        return False, "Please don't use dangerous keywords"
+
+    if set(invalid_paths).intersection(set(tokens)):
+        return False, ". and .. are not allowed."
+
+    for p in tokens:
+        if p[0] != '-':
+            if '.' in p or '..' in p:
+                return False, ". and .. are not allowed"
+
+    return True, ""
 
 def compare_outputs(ans_out, user_out):
     ans = ans_out.split('\n')
