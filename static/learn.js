@@ -243,7 +243,7 @@ $(document).ready(function () {
 
         if (code == 13) {
             if (lessonFinished) {
-                if (!modalSeen && lessonFinished){
+                if (!modalSeen && lessonFinished && currLesson["lesson_id"]=="final"){
                     $("#modal-button").trigger('click');
                     modalSeen = true;
                 } else {
@@ -268,7 +268,7 @@ $(document).ready(function () {
     })
 
     $(".bottom_next").click(function(event){
-        if (!modalSeen && lessonFinished){
+        if (!modalSeen && lessonFinished && currLesson["lesson_id"]=="final"){
             $("#modal-button").trigger('click');
             modalSeen = true;
         } else {
