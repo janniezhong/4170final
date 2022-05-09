@@ -135,8 +135,8 @@ function renderTree(qid) {
 }
 function addText() {
     $(".prompt").empty();
-    $("<p>" + quiz_info["instruction"] + "</p>").appendTo(".prompt");
-    $("<p>" + "\r\n\r\n" + "</p>").appendTo(".prompt");
+    // $("<p>" + quiz_info["instruction"] + "</p>").appendTo(".prompt");
+    // $("<p>" + "\r\n\r\n" + "</p>").appendTo(".prompt");
 
     $("<p>" + quiz_info["question"] + "</p>").appendTo(".prompt");
 }
