@@ -5,6 +5,7 @@ var container = {
     keyboardContent: ""
 };
 
+let answered = false
 function checkAnswer(currLine, qid) {
     data = {
         id: qid,
@@ -23,7 +24,10 @@ function checkAnswer(currLine, qid) {
 
             if (result == "Correct!") {
                 $("#next").attr("href", getNextPage(qid));
-                term.write("\r\n Nice! Click next to go to the next page!\r\n > ");
+                term.write('\r\n> ')
+                $("#feedback").empty()
+                $("#feedback").append("Nice! Click next to go to the next page!")
+                answered = true;
             } else {
                 term.write("\r\n That wasn't quite right :/ Try again? Some hints:\r\n \x1b[1;31m" + result + " \x1b[0;97m\r\n > ");
             }
@@ -234,6 +238,9 @@ $(document).ready(function () {
         let code = e.key.charCodeAt();
 
         if (code == 13) {
+            if(answered){
+                window.location.href= getNextPage(qidNum)
+            }
             if (container.currLine) {
                 checkAnswer(container.currLine, qidNum);
                 container.currLine = "";
