@@ -327,13 +327,19 @@ def parse_request(uid, req, quiz=True):
 
     if arr_without_flag[0] != 'grep':
         return 'Please use grep as your first command of your answer'
+
+    if len(arr_without_flag) != 3:
+        return 'It seems you omitted or put exptra either pattern or file/directory'
     
-    user_pattern = sorted(word.strip() for word in arr_without_flag[1].lstrip("\"").rstrip("\"").split("|"))
+    user_pattern = sorted(arr_without_flag[1].lstrip("\"").rstrip("\"").split("|"))
 
     pattern_idx = 2 if ans[1][0] == '-' else 1
-    tmp = sorted(arr_without_flag[pattern_idx].lstrip("\"").rstrip("\"").split("|"))
-    ans_pattern = sorted(word.strip() for word in ans[pattern_idx].lstrip("\"").rstrip("\"").split("|"))
-    print(tmp)
+
+    if '|' in arr_without_flag[pattern_idx] and arr_without_flag[pattern_idx][0] != '\"' and arr_without_flag[pattern_idx][-1] != '\"':
+        return 'Please use a correct format for pattern' 
+
+    ans_pattern = sorted(ans[pattern_idx].lstrip("\"").rstrip("\"").split("|"))
+
     if user_pattern != ans_pattern:
         return 'Please use a correct pattern'
     
