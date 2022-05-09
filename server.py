@@ -198,31 +198,31 @@ quiz_dict = {
     '1': {
         'quiz_id': '1',
         'title': 'Quiz 1',
-        'question': 'You have recipe_book that contains recipes, and you are trying to find recipes that use an onion in recipe_book. How would you find them?',
-        'answer': 'grep -R onion recipe_book'
+        'question': 'You are at home directory (~/) that has recipe_book (directory). You have recipe_book that contains recipes (files), and you are trying to find recipes that use onion (case-sensitive) in recipe_book. How would you find them?',
+        'answer': 'grep -r onion recipe_book'
     },
     '2': {
         'quiz_id': '2',
         'title': 'Quiz 2',
-        'question': 'Now, you want recipes that use both salt and mustard in recipe_book. How would you find them?',
-        'answer': 'grep -RE "mustard|salt" recipe_book'
+        'question': 'Now, you want recipes (files) that use both salt and mustard in recipe_book (directory). How would you find them? Note that you are still in home directory and salt and mustard are case-sensitive',
+        'answer': 'grep -rE "mustard|salt" recipe_book'
     },
     '3': {
         'quiz_id': '3',
         'title': 'Quiz 3',
-        'question': 'You are trying to check if recipe4 uses a carrot, but the letter cases are messed up. How would you check if recipe4 uses a carrot?',
+        'question': 'You are trying to check if recipe4 (a file in recipe_book directory) uses a carrot, but the letter cases are messed up How would you check if recipe4 uses a carrot? Note that the word you are trying to search is carrot (case-sensitive), but recipe4 may have carrot as cArrOT, CaRRot, etc...',
         'answer': 'grep -i carrot recipe_book/recipe4'
     },
     '4': {
         'quiz_id': '4',
         'title': 'Quiz 4',
-        'question': 'The recipe book now has two sections: savory recipes and sweet recipes. However, you don\'t care taste and want to find all recipes that use garlic. How would you find them?',
-        'answer': 'grep -R garlic recipe_book'
+        'question': 'The recipe book (directory) now has two sections: savory recipes (directory in recipe_book) and sweet recipes (directory in recipe_book). However, you don\'t care taste and want to find all recipes that use garlic. How would you find them? Note that you are still in home directory and trying to find all recipes in recipe_book',
+        'answer': 'grep -r garlic recipe_book'
     },
     '5': {
         'quiz_id': '5',
         'title': 'Quiz 5',
-        'question': 'You found out that the letter cases for garlic are also messed up. How would you find them',
+        'question': 'You found out that the letter cases for garlic are also messed up. How would you find them? Note that the word you are trying to search is garlic (case-sensitive), but there may be recipes that have garlic as GARLIC, garLiC, gARliC, etc...',
         'answer': 'grep -iR garlic recipe_book'
     },
 }
