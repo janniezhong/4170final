@@ -198,28 +198,24 @@ quiz_dict = {
     '1': {
         'quiz_id': '1',
         'title': 'Quiz 1',
-        'instruction': 'If you need a hint, type and enter h.',
         'question': 'You are trying to find all recipes that use an onion. How would you find them?',
         'answer': 'grep -R onion recipe_book'
     },
     '2': {
         'quiz_id': '2',
         'title': 'Quiz 2',
-        'instruction': 'If you need a hint, type and enter h.',
         'question': 'Now, you want all recipes that use both salt and mustard. How would you find them?',
         'answer': 'grep -RE "mustard|salt" recipe_book'
     },
     '3': {
         'quiz_id': '3',
         'title': 'Quiz 3',
-        'instruction': 'If you need a hint, type and enter h.',
         'question': 'You are trying to check if recipe4 uses a carrot, but the letter cases are messed up. How would you check if recipe4 uses a carrot?',
         'answer': 'grep -i carrot recipe_book/recipe4'
     },
     '4': {
         'quiz_id': '4',
         'title': 'Searching Through Recipes',
-        'instruction': 'If you need a hint, type and enter h.',
         'question': 'The recipe book now has two sections: savory recipes and sweet recipes. However, you don\'t care taste and want to find all recipes that use garlic. How would you find them?',
         'answer': 'grep -R garlic recipe_book'
     }
