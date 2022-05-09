@@ -37,5 +37,5 @@ $(document).ready(function(){
     // term.write("\r\n         - the grep man page")
     // term.write("\r\n         - using regex with grep")
     // term.write("\r\n         - variants of grep (egrep, fgrep)")
-    $("#score").append( score.toString() );
+    $("#score").append(score.toString());
 }) 

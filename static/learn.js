@@ -15,6 +15,7 @@ let currLesson = {
 }
 
 let lessonFinished = false
+let modalSeen = false;
 
 let keyboardContent = ""
 
@@ -58,6 +59,24 @@ function updateCurrLesson(lesson_info) {
     currLesson["next_lesson_id"] = lesson_info["next_lesson_id"]
 }
 
+function getPrevPage() {
+    lid = currLesson["lesson_id"]
+    if (lid == "1") {
+        return "/";
+    } else {
+        return "/learn/" + currLesson["previous_lesson_id"];
+    }
+}
+
+function getNextPage() {
+    lid = currLesson["lesson_id"]
+    // if the lesson is the last one, go to the quiz instead
+    if (lid == "final") {
+        return "/quiz/1";
+    } else {
+        return "/learn/" + currLesson["next_lesson_id"];
+    }
+}
 function displayCurrLesson() {
     // display title
     $(".title").empty()
@@ -72,19 +91,12 @@ function displayCurrLesson() {
     $(".instruction").empty()
     $(".instruction").append(currLesson["instruction"])
 
-
-    $("#prev").attr("href", "/learn/" + currLesson["previous_lesson_id"])
-    if (currLesson["lesson_id"] == "final") {
-        $("#next").attr("href", "/quiz/1")
-    } else {
-        $("#next").attr("href", "/learn/" + currLesson["next_lesson_id"])
-    }
+    $("#prev").attr("href", getPrevPage())
+    $("#next").attr("href", getNextPage())
 
 }
 
 function checkAnswer() { // if the lesson is the last one, go to the quiz instead
-
-
     data = {
         "id": currLesson["lesson_id"],
         "response": currLine
@@ -118,7 +130,9 @@ function checkAnswer() { // if the lesson is the last one, go to the quiz instea
 function finishLesson() {
     $("#feedback").empty()
     $("#feedback").append(currLesson["feedback"])
+    lessonFinished = true
 }
+
 
 function updateTerminal(s) {
     term.write('\r\n')
@@ -229,7 +243,12 @@ $(document).ready(function () {
 
         if (code == 13) {
             if (lessonFinished) {
-                window.location.href = "/quiz/1"
+                if (!modalSeen && lessonFinished){
+                    $("#modal-button").trigger('click');
+                    modalSeen = true;
+                } else {
+                    window.location.href = getNextPage()
+                }
             } else if (currLine) {
                 checkAnswer()
                 currLine = ""
@@ -248,11 +267,12 @@ $(document).ready(function () {
 
     })
 
-    $("#bottom_next").click(function(event){
-        if (currLesson["lesson_id"] == "final"){
-            window.location.href="/quiz/1"
+    $(".bottom_next").click(function(event){
+        if (!modalSeen && lessonFinished){
+            $("#modal-button").trigger('click');
+            modalSeen = true;
         } else {
-            window.location.href="/learn/"+currLesson["next_lesson_id"]
+            window.location.href=getNextPage()
         }
     });
 

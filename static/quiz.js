@@ -254,4 +254,10 @@ $(document).ready(function () {
             term.write(e.key);
         }
     });
+
+    $(".bottom_next").click(function(event){
+        window.location.href=getNextPage(qidNum)
+    });
+
+
 });
