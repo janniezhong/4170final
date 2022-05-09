@@ -42,8 +42,8 @@ lessons = {
         "topic": "How to search for multiple strings",
         "prompt": "If we want to search for different strings at once,\r\n(say \"<span class = \"search-string\">star</span>\" and \"<span class=\"search-string\">diamond</span>\") we use the pipe operator, \"|\", to indicate \"or\".",
         "feedback": "Every line contains either \"<span class = \"search-string\">star</span>\" or \"<span class=\"search-string\">diamond</span>\".",
-        "instruction": "Try typing \"<span class = \"command\">grep</span> \"<span class = \"search-string\">star</span> | <span class=\"search-string\">diamond</span>\" <span class = \"location\">TwinkleTwinkle.txt</span>\".",
-        "answer": "grep \"star | diamond\" TwinkleTwinkle.txt",
+        "instruction": "Try typing \"<span class = \"command\">grep</span> \"<span class = \"search-string\">star</span>|<span class=\"search-string\">diamond</span>\" <span class = \"location\">TwinkleTwinkle.txt</span>\".",
+        "answer": "grep \"star|diamond\" TwinkleTwinkle.txt",
         "response": "Twinkle, twinkle, little star\r\nLike a diamond in the sky\r\nTwinkle, twinkle, little star\r\n",
         "previous_lesson_id": "2",
         "next_lesson_id": "4",
@@ -56,7 +56,7 @@ lessons = {
         "prompt": "How would you search the <span class = \"location\">TwinkleTwinkle.txt</span> file for lines that contain \"<span class = \"search-string\">wonder</span>\" or a comma(\"<span class = \"search-string\">,</span>\")?",
         "feedback": "Again, every line contains either \"<span class = \"search-string\">wonder</span>\" or \"<span class = \"search-string\">,</span>\".",
         "instruction": "",
-        "answer": "grep \"wonder | ,\" TwinkleTwinkle.txt",
+        "answer": "grep \"wonder|,\" TwinkleTwinkle.txt",
         "response": "Twinkle, twinkle, little star\r\nHow I wonder what you are\r\nTwinkle, twinkle, little star\r\n",
         "previous_lesson_id": "3",
         "next_lesson_id": "5",
@@ -198,13 +198,13 @@ quiz_dict = {
     '1': {
         'quiz_id': '1',
         'title': 'Quiz 1',
-        'question': 'You are trying to find all recipes that use an onion. How would you find them?',
+        'question': 'You have recipe_book that contains recipes, and you are trying to find recipes that use an onion in recipe_book. How would you find them?',
         'answer': 'grep -R onion recipe_book'
     },
     '2': {
         'quiz_id': '2',
         'title': 'Quiz 2',
-        'question': 'Now, you want all recipes that use both salt and mustard. How would you find them?',
+        'question': 'Now, you want recipes that use both salt and mustard in recipe_book. How would you find them?',
         'answer': 'grep -RE "mustard|salt" recipe_book'
     },
     '3': {
@@ -215,10 +215,16 @@ quiz_dict = {
     },
     '4': {
         'quiz_id': '4',
-        'title': 'Searching Through Recipes',
+        'title': 'Quiz 4',
         'question': 'The recipe book now has two sections: savory recipes and sweet recipes. However, you don\'t care taste and want to find all recipes that use garlic. How would you find them?',
         'answer': 'grep -R garlic recipe_book'
-    }
+    },
+    '5': {
+        'quiz_id': '5',
+        'title': 'Quiz 5',
+        'question': 'You found out that the letter cases for garlic are also messed up. How would you find them',
+        'answer': 'grep -iR garlic recipe_book'
+    },
 }
 
 lesson_responses = {}
@@ -276,11 +282,14 @@ def check_answer():
     print(lesson_id, lesson_response)
     lesson_return = {"correct": "true",
                      "error": ""}
-    if lesson_response == lessons[lesson_id]["answer"]:
+    
+    parsed_res = parse_request(lesson_id, lesson_response, False)
+
+    if parsed_res == "Correct!":
         return jsonify(lesson_return)
     else:
         lesson_return["correct"] = "false"
-        lesson_return["error"] = "MISC. error"
+        lesson_return["error"] = parsed_res
         return jsonify(lesson_return)
 
 
@@ -288,18 +297,61 @@ def check_answer():
 def save_response():
     json_data = request.get_json()
 
-    qid = json_data["id"]
+    uid = json_data["id"]
     response = json_data["response"]
-    quiz_response[qid].append(response)
+    quiz_response[uid].append(response)
 
-    flgCorrect, errMsg = check_quiz_answers(quiz_dict[str(qid)]["answer"], response, qid)
+    res = parse_request(uid, response)
 
-    quiz_score[qid] = 1 if flgCorrect else 0
+    quiz_score[uid] = 1 if res == 'Correct!' else 0
 
-    return jsonify({
-        "flgCorrect": flgCorrect,
-        "errMsg": errMsg.strip()
-    })
+    return jsonify(res)
+
+# methods
+
+
+def parse_request(uid, req, quiz=True):
+    req = list(req.split())
+    ans = quiz_dict[str(uid)]['answer'].split() if quiz else lessons[uid]["answer"].split()
+    flags, arr_without_flag = find_all_flag(req)
+
+    if ans[1][0] == '-':
+        if not flags:
+            return 'Please use a flag(s) for this question'
+        
+        if flags != sorted(ans[1][1:]):
+            return 'Please use a correct flag(s) for grep'
+    else:
+        if flags:
+            return 'It seems you are trying to use unnecessary flag(s)'
+
+    if arr_without_flag[0] != 'grep':
+        return 'Please use grep as your first command of your answer'
+    
+    user_pattern = sorted(word.strip() for word in arr_without_flag[1].lstrip("\"").rstrip("\"").split("|"))
+
+    pattern_idx = 2 if ans[1][0] == '-' else 1
+    tmp = sorted(arr_without_flag[pattern_idx].lstrip("\"").rstrip("\"").split("|"))
+    ans_pattern = sorted(word.strip() for word in ans[pattern_idx].lstrip("\"").rstrip("\"").split("|"))
+    print(tmp)
+    if user_pattern != ans_pattern:
+        return 'Please use a correct pattern'
+    
+    file_idx = 3 if ans[1][0] == '-' else 2
+    if arr_without_flag[2] != ans[file_idx]:
+        return 'Please search a correct file/directory'
+    
+    return 'Correct!'
+
+def find_all_flag(arr):
+    arr_no_flag = []
+    flags = []
+    for i, v in enumerate(arr):
+        if v[0] == '-':
+            flags += list(v[1:])
+        else:
+            arr_no_flag.append(v)
+    return sorted(flags), arr_no_flag
 
 def log_response(lesson_id, lesson_response):
 

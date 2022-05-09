@@ -21,11 +21,11 @@ function checkAnswer(currLine, qid) {
             var flgCorrect = result["flgCorrect"];
             var errMsg = result["errMsg"];
 
-            if (flgCorrect) {
+            if (result == "Correct!") {
                 $("#next").attr("href", getNextPage(qid));
                 term.write("\r\n Nice! Click next to go to the next page!\r\n > ");
             } else {
-                term.write("\r\n That wasn't quite right :/ Try again? Some hints:\r\n \x1b[1;31m" + errMsg + " \x1b[0;97m\r\n > ");
+                term.write("\r\n That wasn't quite right :/ Try again? Some hints:\r\n \x1b[1;31m" + result + " \x1b[0;97m\r\n > ");
             }
         },
         error: function (request, status, error) {
@@ -128,6 +128,7 @@ function renderTree(qid) {
             renderTreeOne();
             return;
         case 4:
+        case 5:
             renderTreeTwo();
         default:
             return;
