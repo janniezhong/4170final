@@ -223,7 +223,7 @@ quiz_dict = {
         'quiz_id': '5',
         'title': 'Quiz 5',
         'question': 'You find that the letter cases for garlic are also messed up. How would you find them? Note that the word you are trying to search is garlic (case-sensitive), but there may be recipes that have garlic as GARLIC, garLiC, gARliC, etc...',
-        'answer': 'grep -iR "garlic" *'
+        'answer': 'grep -ir "garlic" *'
     },
 }
 
