@@ -198,32 +198,32 @@ quiz_dict = {
     '1': {
         'quiz_id': '1',
         'title': 'Quiz 1',
-        'question': 'You are at home directory (~/) that has recipe_book (directory). You have recipe_book that contains recipes (files), and you are trying to find recipes that use onion (case-sensitive) in recipe_book. How would you find them?',
+        'question': 'You are in a directory that has a directory <span class = \"location\">recipe_book</span>. The <span class = \"location\">recipe_book</span> that contains recipes (files), and you are trying to find recipes that use \"<span class = \"search-string\">onion</span>\" <span class = \"flags\">(case-sensitive)</span> in <span class = \"location\">recipe_book</span>. How would you find them?',
         'answer': 'grep -r "onion" recipe_book'
     },
     '2': {
         'quiz_id': '2',
         'title': 'Quiz 2',
-        'question': 'Now, you want recipes (files) that use both salt and mustard in recipe_book (directory). How would you find them? Note that you are still in home directory and salt and mustard are case-sensitive',
-        'answer': 'grep -rE "mustard|salt" recipe_book'
+        'question': 'Now,"re you want the <span class = \"flags\">names</span> of recipes that use both \"<span class = \"search-string\">salt</span>\" and \"<span class = \"search-string\">mustard</span>\" in <span class = \"location\">recipe_book</span>. How would you find them? salt and mustard are <span class = \"flags\">case-sensitive</span>.',
+        'answer': 'grep -rlE "mustard|salt" recipe_book'
     },
     '3': {
         'quiz_id': '3',
         'title': 'Quiz 3',
-        'question': 'You are trying to check if recipe4 (a file in recipe_book directory) uses a carrot, but the letter cases are messed up How would you check if recipe4 uses a carrot? Note that the word you are trying to search is carrot (case-sensitive), but recipe4 may have carrot as cArrOT, CaRRot, etc...',
-        'answer': 'grep -i "carrot" recipe_book/recipe4'
+        'question': 'You now move into the recipe_book directory. You are trying to check if <span class = \"location\">recipe4.txt</span> uses a carrot, but the letter cases are messed up (\"Carrot\", \"caRrot\"). How would you check if <span class = \"location\">recipe4.txt</span> uses a \"<span class = \"search-string\">carrot</span>\", <span class = \"flags\">case-insensitive</span>?',
+        'answer': 'grep -i "carrot" recipe4.txt'
     },
     '4': {
         'quiz_id': '4',
         'title': 'Quiz 4',
-        'question': 'The recipe book (directory) now has two sections: savory recipes (directory in recipe_book) and sweet recipes (directory in recipe_book). However, you don\'t care taste and want to find all recipes that use garlic. How would you find them? Note that you are still in home directory and trying to find all recipes in recipe_book',
-        'answer': 'grep -r "garlic" recipe_book'
+        'question': 'You are now in the <span class = \"location\">new_recipe_book</span> directory that has two sub-directories: savory recipes and sweet recipes. However, you just want to find all recipes (in both subdirectories) that use \"<span class = \"search-string\">garlic</span>\", <span class = \"flags\">case-sensitive</span>. How would you find them?',
+        'answer': 'grep -r "garlic" *'
     },
     '5': {
         'quiz_id': '5',
         'title': 'Quiz 5',
         'question': 'You find that the letter cases for garlic are also messed up. How would you find them? Note that the word you are trying to search is garlic (case-sensitive), but there may be recipes that have garlic as GARLIC, garLiC, gARliC, etc...',
-        'answer': 'grep -iR "garlic" recipe_book'
+        'answer': 'grep -iR "garlic" *'
     },
 }
 
@@ -329,7 +329,7 @@ def parse_request(uid, req, quiz=True):
         return 'Please use grep as your first command of your answer'
 
     if len(arr_without_flag) != 3:
-        return 'It seems you omitted or put exptra either pattern or file/directory'
+        return 'Too many arguments!'
     
     user_pattern = sorted(arr_without_flag[1].lstrip("\"").rstrip("\"").split("|"))
 

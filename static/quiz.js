@@ -29,7 +29,7 @@ function checkAnswer(currLine, qid) {
                 $("#feedback").append("Nice! Click next to go to the next page!")
                 answered = true;
             } else {
-                term.write("\r\n That wasn't quite right :/ Try again? Some hints:\r\n \x1b[1;31m" + result + " \x1b[0;97m\r\n > ");
+                term.write("\r\n That wasn't right :/ A hint:\r\n \x1b[1;31m" + result + " \x1b[0;97m\r\n > ");
             }
         },
         error: function (request, status, error) {
@@ -51,7 +51,7 @@ function getPrevPage(qid) {
 
 function getNextPage(qid) {
     // if the lesson is the last one, go to the quiz instead
-    if (qid == 4) {
+    if (qid == 5) {
         return "/result";
     } else {
         return "/quiz/" + (qid + 1).toString();
@@ -104,22 +104,22 @@ function getCurrQuizNum() {
 
 function renderTreeOne() {
     term.write("recipe_book \r\n");
-    term.write("├── recipe1 \r\n");
-    term.write("├── recipe2 \r\n");
-    term.write("├── recipe3 \r\n");
-    term.write("└── recipe4 \r\n");
+    term.write("├── recipe1.txt \r\n");
+    term.write("├── recipe2.txt \r\n");
+    term.write("├── recipe3.txt \r\n");
+    term.write("└── recipe4.txt \r\n");
 
     term.write("0 directories, 4 files");
 }
 
 function renderTreeTwo() {
-    term.write("recipe_book \r\n");
+    term.write("new_recipe_book \r\n");
     term.write("├── savory \r\n");
-    term.write("│   ├── recipe1\r\n");
-    term.write("│   └── recipe2\r\n");
+    term.write("│   ├── recipe1.txt\r\n");
+    term.write("│   └── recipe2.txt\r\n");
     term.write("└── sweet\r\n");
-    term.write("    ├── recipe3\r\n");
-    term.write("    └── recipe4\r\n");
+    term.write("    ├── recipe3.txt\r\n");
+    term.write("    └── recipe4.txt\r\n");
 
     term.write("2 directories, 4 files");
 }
@@ -153,7 +153,7 @@ function addTitle(pid) {
 
 function setProgBar(qid) {
     var elem = document.getElementById("quiz-prog-bar");
-    var val = 25 * (qid - 1);
+    var val = 20 * (qid - 1);
     elem.setAttribute("style", "width: " + val.toString() + "%;");
     elem.setAttribute("aria-valuenow", val.toString());
 
