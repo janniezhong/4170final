@@ -38,4 +38,14 @@ $(document).ready(function(){
     // term.write("\r\n         - using regex with grep")
     // term.write("\r\n         - variants of grep (egrep, fgrep)")
     $("#score").append(score.toString());
+
+    $("#homeicon").click(function(event){
+        window.location.href = "/"
+    });
+    $("#learnicon").click(function(event){
+        window.location.href = "/learn/1"
+    });
+    $("#quizicon").click(function(event){
+        window.location.href = "/quiz/1"
+    });
 }) 

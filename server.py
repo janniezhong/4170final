@@ -41,7 +41,7 @@ lessons = {
         "lesson_id": "3",
         "topic": "multiple strings",
         "prompt": "If we want to search for different strings at once,\r\n(say \"<span class = \"search-string\">star</span>\" and \"<span class=\"search-string\">diamond</span>\") we use the pipe operator, \"|\", along with the <span class = \"flags\">-E</span> flag to indicate <b>or</b>. Watch your capitalization — <span class = \"command\">grep</span> cares about capitalization in its flags.",
-        "feedback": "Every line contains either \"<span class = \"search-string\">star</span>\" or \"<span class=\"search-string\">diamond</span>\".",
+        "feedback": "These lines contains either \"<span class = \"search-string\">star</span>\" or \"<span class=\"search-string\">diamond</span>\".",
         "instruction": "Try typing \"<span class = \"command\">grep</span> <span class = \"flags\">-E</span> \"<span class = \"search-string\">star</span>|<span class=\"search-string\">diamond</span>\" <span class = \"location\">TwinkleTwinkle.txt</span>\". The backslash acts as a escape character.",
         "answer": "grep -E \"star|diamond\" TwinkleTwinkle.txt",
         "response": "Twinkle, twinkle, little star\r\nLike a diamond in the sky\r\nTwinkle, twinkle, little star\r\n",
@@ -54,7 +54,7 @@ lessons = {
         "lesson_id": "4",
         "topic": "multiple strings",
         "prompt": "How would you search the <span class = \"location\">TwinkleTwinkle.txt</span> file for lines that contain \"<span class = \"search-string\">wonder</span>\" or a comma(\"<span class = \"search-string\">,</span>\")?",
-        "feedback": "Again, every line contains either \"<span class = \"search-string\">wonder</span>\" or \"<span class = \"search-string\">,</span>\".",
+        "feedback": "Again, these lines contain either \"<span class = \"search-string\">wonder</span>\" or \"<span class = \"search-string\">,</span>\".",
         "instruction": "",
         "answer": "grep -E \"wonder|,\" TwinkleTwinkle.txt",
         "response": "Twinkle, twinkle, little star\r\nHow I wonder what you are\r\nTwinkle, twinkle, little star\r\n",
@@ -157,7 +157,7 @@ lessons = {
         "chapter_id": "5",
         "lesson_id": "12",
         "topic": "searching in files inside directories",
-        "prompt": "The current directory contains a folder titled \"<span class = \"location\">favorite</span>\" which contains the file \"<span class = \"location\">HumptyDumpty.txt</span>\".",
+        "prompt": "The current directory contains a folder titled \"<span class = \"location\">favorite</span>\" which contains the file \"<span class = \"location\">HumptyDumpty.txt</span>\". Let's search for words in the <span class = \"location\">HumptyDumpty.txt</span> file as well.",
         "feedback": "There are no results! That's because <span class = \"command\">grep</span>\'s search function doesn\'t extend beyond the present working directory - meaning that, by default, it won't look within folders. We can solve this with another flag.",
         "instruction": "Type \"<span class = \"command\">grep</span> \"<span class = \"search-string\">horses</span>\" <span class = \"location\">*</span>\".",
         "answer": "grep \"horses\" *",
@@ -204,7 +204,7 @@ quiz_dict = {
     '2': {
         'quiz_id': '2',
         'title': 'Quiz 2',
-        'question': 'Now,"re you want the <span class = \"flags\">names</span> of recipes that use both \"<span class = \"search-string\">salt</span>\" and \"<span class = \"search-string\">mustard</span>\" in <span class = \"location\">recipe_book</span>. How would you find them? salt and mustard are <span class = \"flags\">case-sensitive</span>.',
+        'question': 'Now, you want the <span class = \"flags\">names</span> of recipes that use both \"<span class = \"search-string\">salt</span>\" and \"<span class = \"search-string\">mustard</span>\" in <span class = \"location\">recipe_book</span>. How would you find them? salt and mustard are <span class = \"flags\">case-sensitive</span>.',
         'answer': 'grep -rlE "mustard|salt" recipe_book'
     },
     '3': {
@@ -216,14 +216,14 @@ quiz_dict = {
     '4': {
         'quiz_id': '4',
         'title': 'Quiz 4',
-        'question': 'You are now in the <span class = \"location\">new_recipe_book</span> directory that has two sub-directories: savory recipes and sweet recipes. However, you just want to find all recipes (in both subdirectories) that use \"<span class = \"search-string\">garlic</span>\", <span class = \"flags\">case-sensitive</span>. How would you find them?',
-        'answer': 'grep -r "garlic" *'
+        'question': 'You are now in the <span class = \"location\">new_recipe_book</span> directory that has two sub-directories: savory recipes and sweet recipes. However, you just want to find the <span class = \"flags\">names</span> of all recipes (in both subdirectories) that use \"<span class = \"search-string\">garlic</span>\", <span class = \"flags\">case-sensitive</span>. How would you find them?',
+        'answer': 'grep -rl "garlic" *'
     },
     '5': {
         'quiz_id': '5',
         'title': 'Quiz 5',
-        'question': 'You find that the letter cases for garlic are also messed up. How would you find them? Note that the word you are trying to search is garlic (case-sensitive), but there may be recipes that have garlic as GARLIC, garLiC, gARliC, etc...',
-        'answer': 'grep -ir "garlic" *'
+        'question': 'You find that the letter cases for \"<span class = \"search-string\">garlic</span>\" are also messed up. How could you still find all the recipe names you\'re looking for?',
+        'answer': 'grep -irl "garlic" *'
     },
 }
 
